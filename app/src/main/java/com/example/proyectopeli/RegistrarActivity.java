@@ -5,29 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proyectopeli.Conecction.ConectionBD;
+import com.example.proyectopeli.BLL.UsuarioBLL;
+import com.example.proyectopeli.Entidad.Usuario;
 import com.example.proyectopeli.Recurso.Recurso;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class RegistrarActivity extends AppCompatActivity {
 
-    TextView txtregresar;
-    EditText txtNombre;
-    EditText txtApellido;
-    EditText txtNumero;
-    EditText txtCorreo;
-    String clave;
-    Button registrar;
+
+   public  UsuarioBLL bll = new UsuarioBLL();
+   Button registrar;
+   TextView txtregresar;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,67 +51,52 @@ public class RegistrarActivity extends AppCompatActivity {
         });
     }
 
-    private class Registrar extends AsyncTask<Void, Void, Boolean>{
+    private class Registrar extends AsyncTask<Void, Void, Boolean> {
 
-        @Override
+        private Usuario user = new Usuario();
+
+
         protected void onPreExecute() {
-            txtNombre = (EditText)  findViewById(R.id.txtNombre);
-            txtApellido = (EditText)  findViewById(R.id.txtApellido);
-            txtNumero = (EditText)  findViewById(R.id.txtNumero);
-            txtCorreo = (EditText) findViewById(R.id.txtCorreo);
-            clave = Recurso.generarClave();
-        }
+            // Obtener referencias a las vistas
+            EditText txtNombre = findViewById(R.id.txtNombre);
+            EditText txtApellido = findViewById(R.id.txtApellido);
+            EditText txtNumero = findViewById(R.id.txtNumero);
+            EditText txtCorreo = findViewById(R.id.txtCorreo);
 
+            // Obtener los valores de las vistas
+            String nombre = txtNombre.getText().toString();
+            String apellido = txtApellido.getText().toString();
+            String numero = txtNumero.getText().toString();
+            String correo = txtCorreo.getText().toString();
+            String clave = Recurso.generarClave();
+
+            // Establecer los valores en el objeto 'user'
+            user.setNombre(nombre);
+            user.setApellido(apellido);
+            user.setNumero(numero);
+            user.setCorreo(correo);
+            user.setClave(Recurso.sha256(clave));
+        }
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                Connection conexion = ConectionBD.conectar();
-                if (conexion != null) {
-                    String consulta = "INSERT INTO Usuarios (Nombres, Apellidos, Numero, Correo, Contraseña)VALUES(?,?,?,?,?) ";
-
-                    try (PreparedStatement pstmt = conexion.prepareStatement(consulta)) {
-                        pstmt.setString(1, txtNombre.getText().toString());
-                        pstmt.setString(2, txtApellido.getText().toString());
-                        pstmt.setString(3,txtNumero.getText().toString());
-                        pstmt.setString(4,txtCorreo.getText().toString());
-                        pstmt.setString(5,Recurso.sha256(clave));
-
-                        int filasAfectadas = pstmt.executeUpdate();
-                        return filasAfectadas > 0;
-                    }catch (SQLException e) {
-                        e.printStackTrace();
-                        return false;
-                    } finally {
-                        try {
-                            conexion.close();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                } else {
-                    return false;
-                }
-
-            } catch (Exception exception) {
-                exception.printStackTrace();
+                return bll.Registar(user);
+            } catch (Exception e) {
+                Log.e("AsyncTaskError", "Error en doInBackground()", e);
                 return false;
             }
         }
 
+
         @Override
         protected void onPostExecute(Boolean exitoso) {
             if (exitoso) {
-                Intent intent = new Intent(RegistrarActivity.this , LoginActivity.class);
+                Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
                 startActivity(intent);
-            } else{
-                Toast.makeText(RegistrarActivity.this, "Error al registrar sus datos", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(RegistrarActivity.this, "Error al registrar sus datos de " + user.getNombre(), Toast.LENGTH_SHORT).show();
             }
         }
-
-
-
-
     }
 
 }
