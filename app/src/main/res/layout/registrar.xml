@@ -60,7 +60,7 @@
             android:hint="Apellidos"
             android:paddingLeft="15dp"
             android:inputType="text"
-            android:textColor="@color/gris"
+            android:textColor="@color/black"
             android:textColorHint="@color/cardview_dark_background" />
 
             <EditText
