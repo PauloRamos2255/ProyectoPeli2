@@ -58,6 +58,7 @@
                 android:ems="18"
                 android:hint="Usuario"
                 android:inputType="text"
+                android:paddingLeft="15dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/cardview_dark_background" />
 
@@ -71,6 +72,7 @@
                 android:drawablePadding="8dp"
                 android:ems="18"
                 android:hint="Contraseña"
+                android:paddingLeft="15dp"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:textColorHint="@color/cardview_dark_background" />
