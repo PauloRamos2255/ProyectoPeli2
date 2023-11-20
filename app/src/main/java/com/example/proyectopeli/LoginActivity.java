@@ -36,10 +36,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        txtusurio = (EditText) findViewById(R.id.txtUsuario);
-        txtclave = (EditText) findViewById(R.id.txtClave);
-        lblregistrar = (TextView) findViewById(R.id.lblRegistrar);
-        btnIngresar = (Button) findViewById(R.id.btnIniciar);
+        txtusurio = (EditText) findViewById(R.id.txtusuario);
+        txtclave = (EditText) findViewById(R.id.txtclave);
+        lblregistrar = (TextView) findViewById(R.id.lblregistrar);
+        btnIngresar = (Button) findViewById(R.id.btningresar);
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green">#03dac5</color>
-    <color name="red">#DC143C</color>
+    <color name="azul">#4a4e69</color>
+    <color name="amarillo">#fca311</color>
+    <color name="gris">#edf2fb</color>
 </resources>
