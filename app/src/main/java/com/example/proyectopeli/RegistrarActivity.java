@@ -79,6 +79,7 @@ public class RegistrarActivity extends AppCompatActivity {
         }
 
 
+
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
