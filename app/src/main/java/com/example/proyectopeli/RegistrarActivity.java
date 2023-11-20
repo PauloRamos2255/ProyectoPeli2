@@ -77,6 +77,7 @@ public class RegistrarActivity extends AppCompatActivity {
             user.setCorreo(correo);
             user.setClave(Recurso.sha256(clave));
         }
+
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
