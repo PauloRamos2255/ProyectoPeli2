@@ -15,6 +15,10 @@ import android.widget.Toast;
 
 import com.example.proyectopeli.Conecction.ConectionBD;
 import com.example.proyectopeli.Recurso.Recurso;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,13 +34,17 @@ public class LoginActivity extends AppCompatActivity {
     String usuario;
     String contrasena;
 
+    private FirebaseAuth mAuth;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        txtusurio = (EditText) findViewById(R.id.txtusuario);
+        txtusurio =  findViewById(R.id.txtusuario);
         txtclave = (EditText) findViewById(R.id.txtclave);
         lblregistrar = (TextView) findViewById(R.id.lblregistrar);
         btnIngresar = (Button) findViewById(R.id.btningresar);
@@ -55,6 +63,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
 
     }
 
