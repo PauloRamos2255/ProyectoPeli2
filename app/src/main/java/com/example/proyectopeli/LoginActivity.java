@@ -34,9 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     String usuario;
     String contrasena;
 
-    private FirebaseAuth mAuth;
-
-
 
 
     @Override
