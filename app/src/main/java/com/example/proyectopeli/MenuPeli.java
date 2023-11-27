@@ -20,6 +20,9 @@ public class MenuPeli extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setSupportActionBar(findViewById(R.id.toolbar)); // Asegúrate de reemplazar "R.id.toolbar" con el ID de tu Toolbar
+
+
         binding = ActivityMenuPeliBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

@@ -1,16 +1,23 @@
 package com.example.proyectopeli;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 
 import com.example.proyectopeli.Conecction.ConectionBD;
@@ -61,9 +68,37 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        LayoutInflater inflater = this.getLayoutInflater();
+
+
+        if (!isNetworkAvailable(getApplicationContext())) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+            builder.setTitle("Alerta de Conexión")
+                    .setView(inflater.inflate(R.layout.fragment_vali, null))  // Configura la vista del Fragment en el AlertDialog
+                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
 
 
 
+
+    }
+
+
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 
     private class ConnectToDatabaseTask extends AsyncTask<Void, Void, Boolean> {
@@ -106,7 +141,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean exitoso) {
             if (exitoso) {
-                Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this , MenuPeli.class);
+                startActivity(intent);
             } else {
                 Toast.makeText(LoginActivity.this, "Error al conectar o credenciales incorrectas", Toast.LENGTH_SHORT).show();
             }
