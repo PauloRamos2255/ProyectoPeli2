@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         LayoutInflater inflater = this.getLayoutInflater();
 
         if (!isNetworkAvailable(getApplicationContext())) {
