@@ -70,7 +70,6 @@ public class LoginActivity extends AppCompatActivity {
 
         LayoutInflater inflater = this.getLayoutInflater();
 
-
         if (!isNetworkAvailable(getApplicationContext())) {
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
             builder.setTitle("Alerta de Conexión")
