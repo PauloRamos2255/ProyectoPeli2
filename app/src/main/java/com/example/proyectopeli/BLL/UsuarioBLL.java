@@ -1,17 +1,26 @@
 package com.example.proyectopeli.BLL;
 
+import android.net.Uri;
+
 import com.example.proyectopeli.Conecction.ConectionBD;
 import com.example.proyectopeli.Recurso.Recurso;
 import com.example.proyectopeli.Entidad.Usuario;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class UsuarioBLL {
 
 
-    public Boolean Registar(Usuario user) {
+    Boolean exitoso;
+    public Boolean Registar(Usuario user , StringBuilder urlBuilder ) {
         try {
             Connection conexion = ConectionBD.conectar();
             if (conexion != null) {
@@ -25,18 +34,44 @@ public class UsuarioBLL {
                     pstmt.setString(5, user.getClave());
 
                     int filasAfectadas = pstmt.executeUpdate();
-                    return filasAfectadas > 0;
+
+                    if(filasAfectadas != 0){
+                        if(urlBuilder != null){
+
+
+                            String urlString = urlBuilder.toString();
+                            URL url = new URL(urlString);
+                            String htmlCorreo= "";
+
+                            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+                                String line;
+                                StringBuilder stringBuilder = new StringBuilder();
+
+                                while ((line = reader.readLine()) != null) {
+                                    stringBuilder.append(line);
+                                }
+
+                                htmlCorreo = stringBuilder.toString();
+
+                                reader.close();
+                                connection.disconnect();
+                            }
+
+                            if(htmlCorreo != null){
+                                 exitoso = Recurso.enviarCorreo(user.getCorreo() , "Creacion de Cuenta" , htmlCorreo);
+                            }
+                        }
+                    }
+
+                    return exitoso;
                 }catch (SQLException e) {
                     e.printStackTrace();
                     return false;
-                } finally {
-                    try {
-                        conexion.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
                 }
-
             } else {
                 return false;
             }

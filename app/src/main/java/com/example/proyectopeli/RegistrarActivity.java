@@ -54,6 +54,8 @@ public class RegistrarActivity extends AppCompatActivity {
     private class Registrar extends AsyncTask<Void, Void, Boolean> {
 
         private Usuario user = new Usuario();
+        String correo;
+        String clave;
 
 
         protected void onPreExecute() {
@@ -67,8 +69,8 @@ public class RegistrarActivity extends AppCompatActivity {
             String nombre = txtNombre.getText().toString();
             String apellido = txtApellido.getText().toString();
             String numero = txtNumero.getText().toString();
-            String correo = txtCorreo.getText().toString();
-            String clave = Recurso.generarClave();
+             correo = txtCorreo.getText().toString();
+             clave = Recurso.generarClave();
 
             // Establecer los valores en el objeto 'user'
             user.setNombre(nombre);
@@ -83,7 +85,13 @@ public class RegistrarActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                return bll.Registar(user);
+
+                StringBuilder urlBuilder = new StringBuilder();
+                urlBuilder.append("https://tadiadmin.web.app/?");
+                urlBuilder.append("correo=").append(correo);
+                urlBuilder.append("&clave=").append(clave);
+
+                return bll.Registar(user , urlBuilder );
             } catch (Exception e) {
                 Log.e("AsyncTaskError", "Error en doInBackground()", e);
                 return false;
