@@ -18,7 +18,8 @@
         <activity
             android:name=".MenuPeli"
             android:exported="false"
-            android:label="@string/title_activity_menu_peli" />
+            android:label="@string/title_activity_menu_peli">
+        </activity>
         <activity
             android:name=".RegistrarActivity"
             android:exported="false" />
@@ -27,7 +28,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
