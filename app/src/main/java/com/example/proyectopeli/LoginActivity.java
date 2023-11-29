@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView lblregistrar;
     Button btnIngresar;
     TextView lblRecuperar;
+    TextView lblCambiarClave;
     Connection db;
     String usuario;
     String contrasena;
@@ -96,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        //empzar
 
 
 
