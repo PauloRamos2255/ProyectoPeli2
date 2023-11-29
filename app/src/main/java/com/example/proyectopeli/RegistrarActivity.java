@@ -16,6 +16,8 @@ import com.example.proyectopeli.BLL.UsuarioBLL;
 import com.example.proyectopeli.Entidad.Usuario;
 import com.example.proyectopeli.Recurso.Recurso;
 
+import java.net.URLEncoder;
+
 public class RegistrarActivity extends AppCompatActivity {
 
 
@@ -57,6 +59,8 @@ public class RegistrarActivity extends AppCompatActivity {
         String correo;
         String clave;
 
+        String htmlCorreo ;
+
 
         protected void onPreExecute() {
             // Obtener referencias a las vistas
@@ -85,13 +89,14 @@ public class RegistrarActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
+                String correoCodificado = URLEncoder.encode(correo, "UTF-8");
+                String claveCodificada = URLEncoder.encode(clave, "UTF-8");
 
-                StringBuilder urlBuilder = new StringBuilder();
-                urlBuilder.append("https://tadiadmin.web.app/?");
-                urlBuilder.append("correo=").append(correo);
-                urlBuilder.append("&clave=").append(clave);
+                htmlCorreo  = "<h3>Su cuenta fue creada correctamente</h3></br><p>Su contraseña para acceder es : !clave!</p>";
+                String Mensajecorreo = htmlCorreo.replace("!clave!", clave);
 
-                return bll.Registar(user , urlBuilder );
+
+                return bll.Registar(user , Mensajecorreo );
             } catch (Exception e) {
                 Log.e("AsyncTaskError", "Error en doInBackground()", e);
                 return false;

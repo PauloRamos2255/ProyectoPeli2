@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText txtusurio , txtclave;
     TextView lblregistrar;
     Button btnIngresar;
+    TextView lblRecuperar;
     Connection db;
     String usuario;
     String contrasena;
@@ -49,9 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
 
         txtusurio =  findViewById(R.id.txtusuario);
-        txtclave = (EditText) findViewById(R.id.txtclave);
-        lblregistrar = (TextView) findViewById(R.id.lblregistrar);
-        btnIngresar = (Button) findViewById(R.id.btningresar);
+        txtclave =  findViewById(R.id.txtclave);
+        lblregistrar =  findViewById(R.id.lblregistrar);
+        btnIngresar =  findViewById(R.id.btningresar);
+        lblRecuperar = findViewById(R.id.lblRecuperar);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,8 +73,32 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        lblRecuperar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("Recuperar Cuenta")
+                        .setView(inflater.inflate(R.layout.fragment_recuperar_cuenta, null))  // Configura la vista del Fragment en el AlertDialog
+                        .setPositiveButton("Recuperar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-        LayoutInflater inflater = this.getLayoutInflater();
+                            }
+                        })
+                        .setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+
 
         if (!isNetworkAvailable(getApplicationContext())) {
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
@@ -85,9 +114,6 @@ public class LoginActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         }
-
-
-
 
     }
 

@@ -20,11 +20,13 @@ public class UsuarioBLL {
 
 
     Boolean exitoso;
-    public Boolean Registar(Usuario user , StringBuilder urlBuilder ) {
+    public Boolean Registar(Usuario user , String htmlCorreo ) {
         try {
+            String htmlEnviado = null;
             Connection conexion = ConectionBD.conectar();
             if (conexion != null) {
                 String consulta = "INSERT INTO Usuarios (Nombres, Apellidos, Numero, Correo, Contraseña)VALUES(?,?,?,?,?) ";
+
 
                 try (PreparedStatement pstmt = conexion.prepareStatement(consulta)) {
                     pstmt.setString(1,user.getNombre());
@@ -36,34 +38,34 @@ public class UsuarioBLL {
                     int filasAfectadas = pstmt.executeUpdate();
 
                     if(filasAfectadas != 0){
-                        if(urlBuilder != null){
+                        if(htmlCorreo != null){
+                            try {
+                                String urlString = htmlCorreo;
+                                URL url = new URL(urlString);
+                                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
+                                int responseCode = connection.getResponseCode();
 
-                            String urlString = urlBuilder.toString();
-                            URL url = new URL(urlString);
-                            String htmlCorreo= "";
+                                if (responseCode == HttpURLConnection.HTTP_OK) {
+                                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                                        StringBuilder content = new StringBuilder();
+                                        String line;
 
-                            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                                        while ((line = reader.readLine()) != null) {
+                                            content.append(line);
+                                        }
 
-                            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-                                String line;
-                                StringBuilder stringBuilder = new StringBuilder();
-
-                                while ((line = reader.readLine()) != null) {
-                                    stringBuilder.append(line);
+                                        htmlEnviado = content.toString();
+                                    }
+                                }
+                                if(htmlEnviado != null){
+                                    Recurso.enviarCorreo(user.getCorreo() , "Creacion de Cuenta" , htmlEnviado);
                                 }
 
-                                htmlCorreo = stringBuilder.toString();
-
-                                reader.close();
-                                connection.disconnect();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
 
-                            if(htmlCorreo != null){
-                                 exitoso = Recurso.enviarCorreo(user.getCorreo() , "Creacion de Cuenta" , htmlCorreo);
-                            }
                         }
                     }
 
