@@ -8,13 +8,25 @@
     tools:context=".CambiarClave">
 
     <EditText
-        android:id="@+id/txtRecuperar"
+        android:id="@+id/txtCambiada"
         android:layout_width="290dp"
         android:layout_height="50dp"
         android:layout_marginTop="33dp"
-        android:drawableLeft="@drawable/baseline_settings_backup_restore_24"
+        android:drawableLeft="@drawable/outline_sync_24"
         android:drawablePadding="9dp"
         android:hint="Ingresa la clave cambiada"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background" />
+
+    <EditText
+        android:id="@+id/txtNueva"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/baseline_lock_24"
+        android:drawablePadding="9dp"
+        android:hint="Ingresa tu nueva clave"
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:textColorHint="@color/cardview_dark_background" />
