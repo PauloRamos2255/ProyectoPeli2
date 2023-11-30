@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setTitle("Cambia tu clave!")
+                builder.setTitle("Cambiar clave")
                         .setView(inflater.inflate(R.layout.fragment_cambiar_clave, null))  // Configura la vista del Fragment en el AlertDialog
                         .setPositiveButton("Cambiar", new DialogInterface.OnClickListener() {
                             @Override
