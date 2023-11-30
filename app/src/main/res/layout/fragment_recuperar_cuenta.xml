@@ -15,8 +15,9 @@
         android:layout_marginTop="33dp"
         android:drawableLeft="@drawable/baseline_email_24"
         android:drawablePadding="9dp"
+
         android:hint="Correo electronico"
-        android:paddingLeft="25dp"
+        android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:textColorHint="@color/cardview_dark_background" />
 
