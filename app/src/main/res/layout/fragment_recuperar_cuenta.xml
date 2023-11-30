@@ -11,14 +11,12 @@
     <EditText
         android:id="@+id/txtRecuperar"
         android:layout_width="290dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="33dp"
         android:drawableLeft="@drawable/baseline_email_24"
         android:drawablePadding="9dp"
-        android:ems="18"
         android:hint="Correo electronico"
-        android:inputType="text"
-        android:paddingLeft="19dp"
+        android:paddingLeft="25dp"
         android:textColor="@color/black"
         android:textColorHint="@color/cardview_dark_background" />
 
