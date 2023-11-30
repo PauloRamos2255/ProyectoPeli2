@@ -110,7 +110,7 @@
         android:id="@+id/lblregistrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-1dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="sans-serif-condensed"
         android:text="Registrate aquí"
         android:textAlignment="center"
@@ -125,10 +125,10 @@
         android:layout_height="wrap_content"
         android:text="Recuperar Cuenta"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="19dp"
+        android:textSize="20dp"
         android:textColor="@color/amarillo"
         android:textStyle="bold"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="2dp"
         />
 
     <TextView
@@ -137,10 +137,10 @@
         android:layout_height="wrap_content"
         android:text="Cambiar Clave"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="19dp"
+        android:textSize="20dp"
         android:textColor="@color/amarillo"
         android:textStyle="bold"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="2dp"
         />
 
 
