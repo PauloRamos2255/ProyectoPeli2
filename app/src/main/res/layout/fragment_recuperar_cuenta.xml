@@ -18,7 +18,7 @@
         android:ems="18"
         android:hint="Correo electronico"
         android:inputType="text"
-        android:paddingLeft="20dp"
+        android:paddingLeft="19dp"
         android:textColor="@color/black"
         android:textColorHint="@color/cardview_dark_background" />
 
