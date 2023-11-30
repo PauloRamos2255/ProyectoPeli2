@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".CambiarClave">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <EditText
+        android:id="@+id/txtRecuperar"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="33dp"
+        android:drawableLeft="@drawable/baseline_settings_backup_restore_24"
+        android:drawablePadding="9dp"
+        android:hint="Ingresa la clave cambiada"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background" />
 
-</FrameLayout>
+</LinearLayout>
