@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         lblregistrar =  findViewById(R.id.lblregistrar);
         btnIngresar =  findViewById(R.id.btningresar);
         lblRecuperar = findViewById(R.id.lblRecuperar);
+        lblCambiarClave = findViewById(R.id.lblCambiarClave);
 
         LayoutInflater inflater = this.getLayoutInflater();
 
@@ -98,7 +99,29 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //empzar
+        lblCambiarClave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("Cambia tu clave!")
+                        .setView(inflater.inflate(R.layout.fragment_cambiar_clave, null))  // Configura la vista del Fragment en el AlertDialog
+                        .setPositiveButton("Cambiar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setNegativeButton("Cerrar" ,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
 
 
