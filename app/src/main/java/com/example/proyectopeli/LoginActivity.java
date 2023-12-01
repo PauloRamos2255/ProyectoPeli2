@@ -3,6 +3,7 @@ package com.example.proyectopeli;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,24 +14,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.proyectopeli.BLL.UsuarioBLL;
 
-import com.example.proyectopeli.Conecction.ConectionBD;
 import com.example.proyectopeli.Recurso.Recurso;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,6 +38,10 @@ public class LoginActivity extends AppCompatActivity {
     Connection db;
     String usuario;
     String contrasena;
+
+    private ProgressDialog progressDialog;
+
+    UsuarioBLL bll = new UsuarioBLL();
 
 
 
@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 new ConnectToDatabaseTask().execute();
             }
         });
@@ -70,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         lblregistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(LoginActivity.this, RegistrarActivity.class);
                 startActivity(intent);
             }
@@ -84,6 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                         .setPositiveButton("Recuperar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                String correoR;
+                                correoR = findViewById(R.id.txtRecuperar).toString();
+
 
                             }
                         })
@@ -126,32 +131,31 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        if (!isNetworkAvailable(getApplicationContext())) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-            builder.setTitle("Alerta de Conexión")
-                    .setView(inflater.inflate(R.layout.fragment_vali, null))  // Configura la vista del Fragment en el AlertDialog
-                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
+        if (!Recurso.Conexion(getApplicationContext())) {
+             SinConexxion();
         }
 
     }
 
+    private void SinConexxion() {
+        LayoutInflater inflater = getLayoutInflater();
 
-    private boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        }
-        return false;
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setTitle("Alerta de Conexión")
+                .setView(inflater.inflate(R.layout.fragment_vali, null))  // Configura la vista del Fragment en el AlertDialog
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
+
+
+
 
     private class ConnectToDatabaseTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -163,42 +167,44 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            try {
-                Connection conexion = ConectionBD.conectar();
-                if (conexion != null) {
-                    String consulta = "SELECT * FROM Usuarios  WHERE Correo = ? AND Contraseña = ?";
+            ProgressDailog();
+            Boolean login = bll.Login(usuario , contrasena);
+            return  login;
 
-                    try (PreparedStatement pstmt = conexion.prepareStatement(consulta)) {
-                        pstmt.setString(1, usuario);
-                        pstmt.setString(2, contrasena);
-
-                        ResultSet resultado = pstmt.executeQuery();
-
-                        return resultado.next();
-                    }
-
-                } else {
-                    return false;
-                }
-
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-                return false;
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                return false;
-            }
         }
 
-        @Override
+
         protected void onPostExecute(Boolean exitoso) {
-            if (exitoso) {
+            if(!Recurso.Conexion(getApplicationContext())){
+                 SinConexxion();
+            }
+            else if (exitoso) {
                 Intent intent = new Intent(LoginActivity.this , MenuPeli.class);
                 startActivity(intent);
-            } else {
-                Toast.makeText(LoginActivity.this, "Error al conectar o credenciales incorrectas", Toast.LENGTH_SHORT).show();
+            } else  {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("Credenciales Incorrecta")
+                        .setMessage("Las credenciales proporcionadas son incorrectas. Por favor, inténtalo de nuevo.")
+                        .setNegativeButton("Aceptar" ,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         }
+
+    }
+
+
+    private void ProgressDailog(){
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Iniciando sesión...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
 }

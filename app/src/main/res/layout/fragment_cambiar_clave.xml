@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".CambiarClave">
 
     <EditText
@@ -13,6 +12,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/outline_sync_24"
+        android:layout_gravity="center_horizontal"
         android:drawablePadding="9dp"
         android:hint="Ingresa la clave cambiada"
         android:paddingLeft="5dp"
@@ -24,6 +24,7 @@
         android:layout_width="290dp"
         android:layout_height="45dp"
         android:layout_marginTop="7dp"
+        android:layout_gravity="center_horizontal"
         android:drawableLeft="@drawable/baseline_lock_24"
         android:drawablePadding="9dp"
         android:hint="Ingresa tu nueva clave"
