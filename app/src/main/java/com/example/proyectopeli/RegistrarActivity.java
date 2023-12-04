@@ -81,7 +81,7 @@ public class RegistrarActivity extends AppCompatActivity {
             user.setApellido(apellido);
             user.setNumero(numero);
             user.setCorreo(correo);
-            user.setClave(Recurso.sha256(Recurso.generarClave()));
+            user.setClave(Recurso.generarClave());
         }
 
 
