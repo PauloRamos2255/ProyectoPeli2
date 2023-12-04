@@ -42,8 +42,35 @@ public class UsuarioBLL {
                     int filasAfectadas = pstmt.executeUpdate();
 
                     if(filasAfectadas != 0){
-                        exitoso = true;
+                        if(htmlCorreo != null){
+                            try {
+                                String urlString = htmlCorreo;
+                                URL url = new URL(urlString);
+                                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
+                                int responseCode = connection.getResponseCode();
+
+                                if (responseCode == HttpURLConnection.HTTP_OK) {
+                                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                                        StringBuilder content = new StringBuilder();
+                                        String line;
+
+                                        while ((line = reader.readLine()) != null) {
+                                            content.append(line);
+                                        }
+
+                                        htmlEnviado = content.toString();
+                                    }
+                                }
+                                if(htmlEnviado != null){
+                                   exitoso = Recurso.enviarCorreo(user.getCorreo() , "Creacion de Cuenta" , htmlEnviado);
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
                     }
 
                     return exitoso;

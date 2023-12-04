@@ -33,7 +33,6 @@ public class RegistrarActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +40,14 @@ public class RegistrarActivity extends AppCompatActivity {
 
         txtregresar = (TextView) findViewById(R.id.txtRegresar);
         registrar = (Button) findViewById(R.id.btnRegistar);
+        txtnombre = findViewById(R.id.txtNombre);;
+        nombre = txtnombre.getText().toString();
+        txtapellido = findViewById(R.id.txtApellido);
+        apellido = txtapellido.getText().toString();
+        txtnumero = findViewById(R.id.txtNumero);
+        numero = txtnumero.getText().toString();
+        txtcorreo = findViewById(R.id.txtCorreo);
+        correo = txtcorreo.getText().toString();
 
 
 
@@ -70,10 +77,10 @@ public class RegistrarActivity extends AppCompatActivity {
 
 
         protected void onPreExecute() {
-            user.setNombre(findViewById(R.id.txtNombre).toString() );
-            user.setApellido(findViewById(R.id.txtApellido).toString());
-            user.setNumero(findViewById(R.id.txtNumero).toString());
-            user.setCorreo(findViewById(R.id.txtCorreo).toString());
+            user.setNombre(nombre);
+            user.setApellido(apellido);
+            user.setNumero(numero);
+            user.setCorreo(correo);
             user.setClave(Recurso.sha256(Recurso.generarClave()));
         }
 
@@ -82,18 +89,14 @@ public class RegistrarActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                Boolean exitoso = false;
                 String correoCodificado = URLEncoder.encode(user.getCorreo(), "UTF-8");
                 String claveCodificada = URLEncoder.encode(user.getClave(), "UTF-8");
 
 
-                    htmlCorreo  = "https://tadiadmin.web.app/";
+                    htmlCorreo  = "https://tadiadmin.web.app?clave=!clave!";
                     String Mensajecorreo = htmlCorreo.replace("!clave!", user.getClave());
+                    return  bll.Registar(user  , Mensajecorreo);
 
-                    exitoso = bll.Registar(user , Mensajecorreo );
-
-
-                return  exitoso;
 
             } catch (Exception e) {
                 Log.e("AsyncTaskError", "Error en doInBackground()", e);
@@ -108,7 +111,7 @@ public class RegistrarActivity extends AppCompatActivity {
                 Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
                 startActivity(intent);
             } else {
-                Valiciones("Error al registrar sus datos ");
+                Valiciones("Error al registrar sus datos " + user.getCorreo());
             }
         }
     }
