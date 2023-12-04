@@ -41,35 +41,14 @@ public class RegistrarActivity extends AppCompatActivity {
 
         txtregresar = (TextView) findViewById(R.id.txtRegresar);
         registrar = (Button) findViewById(R.id.btnRegistar);
-        //Caja de Texto
-        txtnombre = findViewById(R.id.txtNombre);
-        txtapellido = findViewById(R.id.txtApellido);
-        txtnumero = findViewById(R.id.txtNumero);
-        txtcorreo = findViewById(R.id.txtCorreo);
 
-        //Texto de las cajas
-        nombre = txtnombre.toString().trim();
-        apellido = txtapellido.toString().trim();
-        numero = txtnumero.toString();
-        correo = txtcorreo.toString();
 
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!Recurso.Conexion(getApplicationContext())) {
-                    SinConexxion();
-                }
-                else if (nombre.toString().isEmpty()||apellido.toString().isEmpty()||numero.toString().isEmpty()||correo.toString().isEmpty()){
-                    Valiciones("LLene todos los campos");
-                }
-                else {
-                    new Registrar().execute();
-                }
 
-                Log.d("CampoNombre", "Contenido: " + nombre);
-
-
+                new Registrar().execute();
 
             }
         });
@@ -108,7 +87,7 @@ public class RegistrarActivity extends AppCompatActivity {
                 String claveCodificada = URLEncoder.encode(user.getClave(), "UTF-8");
 
 
-                    htmlCorreo  = "<h3>Su cuenta fue creada correctamente</h3></br><p>Su contraseña para acceder es : !clave!</p>";
+                    htmlCorreo  = "https://tadiadmin.web.app/";
                     String Mensajecorreo = htmlCorreo.replace("!clave!", user.getClave());
 
                     exitoso = bll.Registar(user , Mensajecorreo );
@@ -129,7 +108,7 @@ public class RegistrarActivity extends AppCompatActivity {
                 Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
                 startActivity(intent);
             } else {
-                Valiciones("Error al registrar sus datos de " + user.getNombre());
+                Valiciones("Error al registrar sus datos ");
             }
         }
     }

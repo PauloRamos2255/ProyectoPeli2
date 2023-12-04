@@ -72,7 +72,7 @@ public class Recurso {
             message.setFrom(new InternetAddress(fromEmail, fromName));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoDestino));
             message.setSubject(asunto);
-            message.setContent(mensaje, "text/html");
+            message.setContent(mensaje,"text/html");
 
             Transport.send(message);
 

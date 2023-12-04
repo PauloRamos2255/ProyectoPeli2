@@ -167,7 +167,6 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            ProgressDailog();
             Boolean login = bll.Login(usuario , contrasena);
             return  login;
 
@@ -200,11 +199,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void ProgressDailog(){
-        progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setMessage("Iniciando sesión...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
+
 
 }
