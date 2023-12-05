@@ -7,7 +7,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import  com.example.proyectopeli.databinding.ActivityMenuPeliBinding;
+import com.example.proyectopeli.databinding.ActivityMenuPeliBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MenuPeli extends AppCompatActivity {

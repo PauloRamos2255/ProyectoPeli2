@@ -6,31 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.proyectopeli.Conecction.MovieAPI;
-import com.example.proyectopeli.Entidad.Movie;
-import com.example.proyectopeli.Entidad.MovieReponse;
-import com.example.proyectopeli.MenuPeli;
 import com.example.proyectopeli.R;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
 import com.example.proyectopeli.Adapter.MovieAdapter;
 
 
-
 import java.util.ArrayList;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import androidx.recyclerview.widget.RecyclerView;
+
+
+
 
 public class HomeFragment extends Fragment {
 

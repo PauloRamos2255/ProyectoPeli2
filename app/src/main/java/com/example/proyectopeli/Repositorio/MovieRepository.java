@@ -28,13 +28,13 @@ public class MovieRepository {
 
     public void getPopularMovies(String apiKey, final OnMoviesCallback callback) {
         // Realiza la solicitud a la API (asumiendo que apiKey es tu clave de API)
-        Call<MovieResponse> call = movieApi.getPopularMovies(apiKey,language);
+        Call<MovieReponse> call = movieApi.getPopularMovies(apiKey,language);
 
-        call.enqueue(new Callback<MovieResponse>() {
+        call.enqueue(new Callback<MovieReponse>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(Call<MovieReponse> call, Response<MovieReponse> response) {
                 if (response.isSuccessful()) {
-                    MovieResponse movieResponse = response.body();
+                    MovieReponse movieResponse = response.body();
 
                     if (movieResponse != null) {
                         List<Movie> movies = movieResponse.getResults();
@@ -46,7 +46,7 @@ public class MovieRepository {
             }
 
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            public void onFailure(Call<MovieReponse> call, Throwable t) {
                 t.printStackTrace();
                 callback.onError("Error de red al obtener la lista de películas");
             }
@@ -60,44 +60,14 @@ public class MovieRepository {
     }
 
 
-    public void getCarteleraMovies(String apiKey, final MoviesCallback callback){
-
-        Call<MovieResponse> call = movieApi.getCarteleraMovies(apiKey ,language );
-        call.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                if (response.isSuccessful()) {
-                    MovieResponse movieResponse = response.body();
-                    if (movieResponse != null) {
-                        List<Movie> movies = movieResponse.getResults();
-                        callback.onSuccess(movies);
-                    }
-                } else {
-                    callback.onError("Error al obtener la lista de películas");
-                }
-            }
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-                t.printStackTrace();
-                callback.onError("Error de red al obtener la lista de películas");
-            }
-        });
-    }
-
-    public interface MoviesCallback {
-        void onSuccess(List<Movie> moviess);
-
-        void onError(String errorMessage);
-    }
-
 
     public void getSearchMovies(String apiKey, String query,final SearchCallback callback){
-        Call<MovieResponse> call = movieApi.getSearchMovies(apiKey ,language, query);
-        call.enqueue(new Callback<MovieResponse>() {
+        Call<MovieReponse> call = movieApi.getSearchMovies(apiKey ,language, query);
+        call.enqueue(new Callback<MovieReponse>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(Call<MovieReponse> call, Response<MovieReponse> response) {
                 if (response.isSuccessful()) {
-                    MovieResponse movieResponse = response.body();
+                    MovieReponse movieResponse = response.body();
                     if (movieResponse != null) {
                         List<Movie> movies = movieResponse.getResults();
 
@@ -117,7 +87,7 @@ public class MovieRepository {
                 }
             }
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            public void onFailure(Call<MovieReponse> call, Throwable t) {
                 t.printStackTrace();
                 callback.onError("Error de red al obtener la lista de películas");
             }
@@ -132,12 +102,12 @@ public class MovieRepository {
 
     public void getCarteleraMovies(String apiKey, final MoviesCallback callback){
 
-        Call<MovieResponse> call = movieApi.getCarteleraMovies(apiKey ,language );
-        call.enqueue(new Callback<MovieResponse>() {
+        Call<MovieReponse> call = movieApi.getCarteleraMovies(apiKey ,language );
+        call.enqueue(new Callback<MovieReponse>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(Call<MovieReponse> call, Response<MovieReponse> response) {
                 if (response.isSuccessful()) {
-                    MovieResponse movieResponse = response.body();
+                    MovieReponse movieResponse = response.body();
                     if (movieResponse != null) {
                         List<Movie> movies = movieResponse.getResults();
                         callback.onSuccess(movies);
@@ -147,7 +117,7 @@ public class MovieRepository {
                 }
             }
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            public void onFailure(Call<MovieReponse> call, Throwable t) {
                 t.printStackTrace();
                 callback.onError("Error de red al obtener la lista de películas");
             }

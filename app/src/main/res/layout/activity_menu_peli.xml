@@ -9,6 +9,12 @@
     android:textColor="@color/amarillo"
     android:orientation="vertical"
     >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        />
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
