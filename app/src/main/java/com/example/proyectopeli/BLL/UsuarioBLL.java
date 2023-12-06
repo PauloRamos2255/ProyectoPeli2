@@ -3,6 +3,7 @@ package com.example.proyectopeli.BLL;
 import android.net.Uri;
 
 import com.example.proyectopeli.Conecction.ConectionBD;
+import com.example.proyectopeli.Entidad.Correo;
 import com.example.proyectopeli.Recurso.Recurso;
 import com.example.proyectopeli.Entidad.Usuario;
 
@@ -24,7 +25,7 @@ public class UsuarioBLL {
 
 
     Boolean exitoso;
-    public Boolean Registar(Usuario user , String htmlCorreo ) {
+    public Boolean Registar(Usuario user  ) {
         try {
             String htmlEnviado = null;
             Connection conexion = ConectionBD.conectar();
@@ -42,35 +43,16 @@ public class UsuarioBLL {
                     int filasAfectadas = pstmt.executeUpdate();
 
                     if(filasAfectadas != 0){
-                        if(htmlCorreo != null){
-                            try {
-                                String urlString = htmlCorreo;
-                                URL url = new URL(urlString);
-                                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        Correo  correo = new Correo();
+                        correo.setCorreo(user.getCorreo());
+                        correo.setClave(user.getClave());
 
-                                int responseCode = connection.getResponseCode();
-
-                                if (responseCode == HttpURLConnection.HTTP_OK) {
-                                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                                        StringBuilder content = new StringBuilder();
-                                        String line;
-
-                                        while ((line = reader.readLine()) != null) {
-                                            content.append(line);
-                                        }
-
-                                        htmlEnviado = content.toString();
-                                    }
-                                }
-                                if(htmlEnviado != null){
-                                   exitoso = Recurso.enviarCorreo(user.getCorreo() , "Creacion de Cuenta" , htmlEnviado);
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
+                        try {
+                            exitoso = Recurso.enviarCorreo(correo);
+                        } catch (Exception ex) {
+                            exitoso = false;
                         }
+
                     }
 
                     return exitoso;

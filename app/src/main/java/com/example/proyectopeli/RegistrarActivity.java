@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proyectopeli.BLL.UsuarioBLL;
+import com.example.proyectopeli.Entidad.Correo;
 import com.example.proyectopeli.Entidad.Usuario;
 import com.example.proyectopeli.Recurso.Recurso;
 
@@ -89,15 +90,7 @@ public class RegistrarActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                String correoCodificado = URLEncoder.encode(user.getCorreo(), "UTF-8");
-                String claveCodificada = URLEncoder.encode(user.getClave(), "UTF-8");
-
-
-                    htmlCorreo  = "https://tadiadmin.web.app?clave=!clave!";
-                    String Mensajecorreo = htmlCorreo.replace("!clave!", user.getClave());
-                    return  bll.Registar(user  , Mensajecorreo);
-
-
+                return  bll.Registar(user );
             } catch (Exception e) {
                 Log.e("AsyncTaskError", "Error en doInBackground()", e);
                 return false;
@@ -107,11 +100,12 @@ public class RegistrarActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean exitoso) {
+            Correo correo1 = new Correo();
             if (exitoso) {
                 Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
                 startActivity(intent);
             } else {
-                Valiciones("Error al registrar sus datos " + user.getCorreo());
+                Valiciones("Error al registrar sus datos " + correo1.toJson() );
             }
         }
     }

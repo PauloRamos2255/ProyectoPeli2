@@ -37,6 +37,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.sun.mail:android-mail:1.6.5")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")

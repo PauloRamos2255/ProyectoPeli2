@@ -1,23 +1,31 @@
 package com.example.proyectopeli.Recurso;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.LayoutInflater;
 
-import androidx.appcompat.app.AlertDialog;
+import com.example.proyectopeli.Entidad.Correo;
 
-import com.example.proyectopeli.RegistrarActivity;
+
+import org.json.JSONObject;
+
 
 import java.nio.charset.StandardCharsets;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 import java.util.UUID;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+
+
+
+
 
 
 public class Recurso {
@@ -46,42 +54,44 @@ public class Recurso {
         return clave;
     }
 
-    public static boolean enviarCorreo(String correoDestino, String asunto, String mensaje) {
+    public static boolean enviarCorreo(Correo correo) {
         try {
-            // Reemplaza estos valores con tu configuración de correo real
-            String smtpHost = "smtp.gmail.com";
-            String smtpPort = "587";
-            final String username = "anuelitoramos@gmail.com";
-            final String password = "xblcxgcvgubforax";
-            String fromEmail = "anuelitoramos@gmail.com";
-            String fromName = "Paulo Ramos";
+            String apiUrl = "http://servicecorreo.somee.com/enviarCorreo";
+            OkHttpClient client = new OkHttpClient();
 
-            Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", smtpHost);
-            props.put("mail.smtp.port", smtpPort);
+            // Convertir el objeto Correo a formato JSON
+            String postData = correo.toJson();
 
-            Session session = Session.getInstance(props, new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(username, password);
+            // Configurar la solicitud HTTP
+            RequestBody requestBody = RequestBody.create(MediaType.get("application/json; charset=utf-8"), postData);
+            Request request = new Request.Builder()
+                    .url(apiUrl)
+                    .post(requestBody)
+                    .build();
+
+            // Enviar la solicitud y obtener la respuesta
+            try (Response response = client.newCall(request).execute()) {
+                if (!response.isSuccessful()) {
+                    // Manejar errores de respuesta aquí
+                    return false;
                 }
-            });
 
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromEmail, fromName));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoDestino));
-            message.setSubject(asunto);
-            message.setContent(mensaje,"text/html");
+                // Leer la respuesta JSON del cuerpo de la respuesta
+                String responseBody = response.body().string();
 
-            Transport.send(message);
-
-            return true;
+                // Procesar la respuesta JSON
+                // En este ejemplo, se espera que la respuesta tenga una propiedad "success"
+                return new JSONObject(responseBody).optBoolean("success", true);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     public static boolean Conexion(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
