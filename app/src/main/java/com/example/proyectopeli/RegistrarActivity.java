@@ -90,7 +90,52 @@ public class RegistrarActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                return  bll.Registar(user );
+                String HTML = "<!DOCTYPE html>\n" +
+                        "\n" +
+                        "<html>\n" +
+                        "<head>\n" +
+                        "    <meta name=\"viewport\" content=\"width=device-width\" />\n" +
+                        "    <title>EnviarClave</title>\n" +
+                        "</head>\n" +
+                        "<body style=\"background-color:#EDF6FF\">\n" +
+                        "    <br />\n" +
+                        "    <br />\n" +
+                        "    <div style=\"width:400px;border-radius:5px; margin:auto;background-color:#fff;box-shadow:0px 0px 10px  #DEDEDE;padding:20px\">\n" +
+                        "        <table style=\"width:100%\">\n" +
+                        "            <tr>\n" +
+                        "                <td align=\"center\" colspan=\"2\">\n" +
+                        "                    <h2 style=\"color:#004DAF\">Bienvenido</h2>\n" +
+                        "                </td>\n" +
+                        "            </tr>\n" +
+                        "            <tr>\n" +
+                        "                <td align=\"left\" colspan=\"2\">\n" +
+                        "                    <p>Se creó exitosamente tu usuario. Los detalles de tu cuenta son:</p>\n" +
+                        "                </td>\n" +
+                        "            </tr>\n" +
+                        "            <tr>\n" +
+                        "                <td><h4 style=\"color:#004DAF;margin:2px\">Correo:</h4></td>\n" +
+                        "                <td>"+ user.getCorreo() + "</td>\n" +
+                        "            </tr>\n" +
+                        "            <tr>\n" +
+                        "                <td><h4 style=\"color:#004DAF;margin:2px\">Contraseña:</h4></td>\n" +
+                        "                <td>"+ user.getClave() +"</td>\n" +
+                        "            </tr>\n" +
+                        "        </table>\n" +
+                        "        <div style=\"background-color:#FFE1CE;padding:15px;margin-top:15px;margin-bottom:15px\">\n" +
+                        "            <p style=\"margin:0px;color: #F45E00;\">Le recomendamos cambiar la contraseña una vez inicie sesión.</p>\n" +
+                        "        </div>\n" +
+                        "        <table>\n" +
+                        "            <tr>\n" +
+                        "                <td>Para iniciar sesión ingrese a la siguiente URL:</td>\n" +
+                        "            </tr>\n" +
+                        "        </table>\n" +
+                        "        <a href=\"@ViewData[\"Url\"]\">Iniciar Sesión</a>\n" +
+                        "    </div>\n" +
+                        "    <br />\n" +
+                        "    <br />\n" +
+                        "</body>\n" +
+                        "</html>";
+                return  bll.Registar(user , HTML);
             } catch (Exception e) {
                 Log.e("AsyncTaskError", "Error en doInBackground()", e);
                 return false;

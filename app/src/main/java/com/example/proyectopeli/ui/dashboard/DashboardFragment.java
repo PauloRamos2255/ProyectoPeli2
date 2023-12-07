@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.proyectopeli.Adapter.MovieAdapter;
+import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.R;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.example.proyectopeli.databinding.FragmentDashboardBinding;
 import com.example.proyectopeli.ui.home.HomeViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
@@ -31,6 +33,7 @@ public class DashboardFragment extends Fragment {
     private String buscar;
     private RecyclerView recycler;
     private MovieAdapter Adapter;
+     private List<Movie> movieList = new ArrayList<>();
     private Handler searchHandler = new Handler();
 
     @Override
@@ -41,7 +44,7 @@ public class DashboardFragment extends Fragment {
         buscar = rootView.findViewById(R.id.txtbuscar).toString();
         int columna = 2;
         recycler.setLayoutManager(new GridLayoutManager(requireContext() , columna));
-        Adapter = new MovieAdapter(new ArrayList<>());
+        Adapter = new MovieAdapter(getActivity(), movieList); // 'this' es el contexto de la actividad o fragmento
         recycler.setAdapter(Adapter);
 
         homeViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);

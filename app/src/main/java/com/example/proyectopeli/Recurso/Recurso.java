@@ -4,31 +4,28 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.example.proyectopeli.Entidad.Correo;
-
-
-import org.json.JSONObject;
-
+import com.example.proyectopeli.Entidad.Usuario;
 
 import java.nio.charset.StandardCharsets;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
+import java.util.Properties;
 import java.util.UUID;
 
-
-
-
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 
 public class Recurso {
+
 
 
     public static String sha256(String input) {
@@ -54,43 +51,50 @@ public class Recurso {
         return clave;
     }
 
-    public static boolean enviarCorreo(Correo correo) {
+
+
+
+    public static boolean enviarCorreo(String correoDestino, String asunto, String mensaje) {
         try {
-            String apiUrl = "http://servicecorreo.somee.com/enviarCorreo";
-            OkHttpClient client = new OkHttpClient();
+             Usuario user = new Usuario();
+            String smtpHost = "smtp.gmail.com";
+            String smtpPort = "587";
+            final String username = "anuelitoramos@gmail.com";
+            final String password = "xblcxgcvgubforax";
+            String fromEmail = "anuelitoramos@gmail.com";
+            String fromName = "Paulo Ramos";
 
-            // Convertir el objeto Correo a formato JSON
-            String postData = correo.toJson();
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", smtpHost);
+            props.put("mail.smtp.port", smtpPort);
 
-            // Configurar la solicitud HTTP
-            RequestBody requestBody = RequestBody.create(MediaType.get("application/json; charset=utf-8"), postData);
-            Request request = new Request.Builder()
-                    .url(apiUrl)
-                    .post(requestBody)
-                    .build();
-
-            // Enviar la solicitud y obtener la respuesta
-            try (Response response = client.newCall(request).execute()) {
-                if (!response.isSuccessful()) {
-                    // Manejar errores de respuesta aquí
-                    return false;
+            Session session = Session.getInstance(props, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
                 }
+            });
 
-                // Leer la respuesta JSON del cuerpo de la respuesta
-                String responseBody = response.body().string();
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail, fromName));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoDestino));
+            message.setSubject(asunto);
+            message.setContent("<p>Este es un párrafo de ejemplo. Puedes agregar tu propio texto aquí. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>", "text/html");
 
-                // Procesar la respuesta JSON
-                // En este ejemplo, se espera que la respuesta tenga una propiedad "success"
-                return new JSONObject(responseBody).optBoolean("success", true);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+
+            Transport.send(message);
+
+
+            return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Maneja la excepción de manera adecuada para tu aplicación
             return false;
         }
     }
+
+
 
 
     public static boolean Conexion(Context context) {

@@ -19,15 +19,11 @@ public class MovieRepository {
     String language = "es-ES";
 
     public MovieRepository() {
-        // Utiliza tu método getClient() de ApiConexion para obtener el cliente Retrofit
         Retrofit retrofit = APIConexion.getClient();
-
-        // Crea una instancia de la interfaz de la API
         movieApi = retrofit.create(MovieAPI.class);
     }
 
     public void getPopularMovies(String apiKey, final OnMoviesCallback callback) {
-        // Realiza la solicitud a la API (asumiendo que apiKey es tu clave de API)
         Call<MovieReponse> call = movieApi.getPopularMovies(apiKey,language);
 
         call.enqueue(new Callback<MovieReponse>() {
