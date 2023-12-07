@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@color/gris"
+            android:background="@color/white"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -58,6 +58,7 @@
                 android:drawablePadding="8dp"
                 android:ems="18"
                 android:hint="Usuario"
+                android:text="anuelitoramos@gmail.com"
                 android:inputType="text"
                 android:paddingLeft="15dp"
                 android:textColor="@color/black"
@@ -73,6 +74,7 @@
                 android:drawablePadding="8dp"
                 android:ems="18"
                 android:hint="Contraseña"
+                android:text="123"
                 android:inputType="textPassword"
                 android:paddingLeft="15dp"
                 android:textColor="@color/black"
