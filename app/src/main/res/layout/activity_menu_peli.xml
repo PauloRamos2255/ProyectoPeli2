@@ -9,12 +9,15 @@
     android:textColor="@color/amarillo"
     android:orientation="vertical"
     >
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        />
+        app:logo="@drawable/logo3"
+         />
+
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
@@ -28,7 +31,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="67dp"
         android:background="@color/morado"
         app:itemIconTint="@color/amarillo"
         app:itemTextColor="@color/amarillo"
