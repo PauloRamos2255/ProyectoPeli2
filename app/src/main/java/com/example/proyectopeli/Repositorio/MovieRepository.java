@@ -129,4 +129,38 @@ public class MovieRepository {
 
         void onError(String errorMessage);
     }
+
+
+    public void getTendenciaMovies(String apiKey, final TendenciaCall callback) {
+        // Realiza la solicitud a la API (asumiendo que apiKey es tu clave de API)
+        Call<MovieReponse> call = movieApi.getTendenciaMovies(apiKey,language);
+
+        call.enqueue(new Callback<MovieReponse>() {
+            @Override
+            public void onResponse(Call<MovieReponse> call, Response<MovieReponse> response) {
+                if (response.isSuccessful()) {
+                    MovieReponse movieResponse = response.body();
+
+                    if (movieResponse != null) {
+                        List<Movie> movies = movieResponse.getResults();
+                        callback.onSuccess(movies);
+                    }
+                } else {
+                    callback.onError("Error al obtener la lista de películas");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieReponse> call, Throwable t) {
+                t.printStackTrace();
+                callback.onError("Error de red al obtener la lista de películas");
+            }
+        });
+    }
+
+    public interface TendenciaCall {
+        void onSuccess(List<Movie> movies);
+
+        void onError(String errorMessage);
+    }
 }

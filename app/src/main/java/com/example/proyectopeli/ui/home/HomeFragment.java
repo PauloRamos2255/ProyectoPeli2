@@ -26,7 +26,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView recycler;
     private MovieAdapter movieAdapter;
-    private MovieAdapter popularAdapter;  // Nuevo adaptador para la lista popular
+    private MovieAdapter popularAdapter;
+
     private HomeViewModel homeViewModel;
 
     @Override

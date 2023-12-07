@@ -13,14 +13,18 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<List<Movie>> carteleraMovies;
     private MutableLiveData<List<Movie>> popularMovies;
+    private MutableLiveData<List<Movie>> tendenciaMovies;
     private MovieRepository movieRepository;
+    String ApiKey = "8300bb0075ff37f5c25ab05fdeb18503";
 
     public HomeViewModel() {
         carteleraMovies = new MutableLiveData<>();
         popularMovies = new MutableLiveData<>();
+        tendenciaMovies = new MutableLiveData<>();
         movieRepository = new MovieRepository();
-        fetchPopularMovies("8300bb0075ff37f5c25ab05fdeb18503"); // Reemplaza "TU_CLAVE_API" con tu clave de API real
-        fetchCarteleraMovies("8300bb0075ff37f5c25ab05fdeb18503");
+        fetchPopularMovies(ApiKey);
+        fetchCarteleraMovies(ApiKey);
+        fetchTendenciaMovies(ApiKey);
 
     }
 
@@ -31,6 +35,10 @@ public class HomeViewModel extends ViewModel {
 
     public LiveData<List<Movie>> getPopularMovies() {
         return popularMovies;
+    }
+
+    public LiveData<List<Movie>> getTendeciaMovies() {
+        return tendenciaMovies;
     }
 
 
@@ -57,6 +65,22 @@ public class HomeViewModel extends ViewModel {
             @Override
             public void onSuccess(List<Movie> moviesList) {
                 popularMovies.setValue(moviesList);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                // Maneja el error según tus necesidades (puedes mostrar un mensaje en la interfaz de usuario, etc.)
+            }
+        });
+    }
+
+    private void fetchTendenciaMovies(String apiKey) {
+
+
+        movieRepository.getTendenciaMovies(apiKey, new MovieRepository.TendenciaCall() {
+            @Override
+            public void onSuccess(List<Movie> moviesList) {
+                tendenciaMovies.setValue(moviesList);
             }
 
             @Override

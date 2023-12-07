@@ -78,7 +78,7 @@
                 android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView1"
+                android:id="@+id/tendencia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -102,7 +102,7 @@
                 android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView2"
+                android:id="@+id/estrenos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
