@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.R;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +53,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+    Movie movie;
 
     private void observeViewModel() {
         homeViewModel.getCarteleraMovies().observe(getViewLifecycleOwner(), carteleraMovies -> {

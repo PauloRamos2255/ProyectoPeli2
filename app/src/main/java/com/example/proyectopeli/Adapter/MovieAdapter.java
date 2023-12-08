@@ -1,6 +1,7 @@
 package com.example.proyectopeli.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,22 +9,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.proyectopeli.DescripcionActivity;
 import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.R;
-import com.example.proyectopeli.ui.descripcion.Descripcion;
+import com.google.gson.Gson;
 
 import java.util.List;
 
 
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-
     private List<Movie> movies;
     private Context context;
 
@@ -32,17 +30,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.movies = movies;
     }
 
-    private OnImageClickListener onImageClickListener;
-
-    public void setOnImageClickListener(OnImageClickListener listener) {
-        this.onImageClickListener = listener;
-    }
-
     public void updateMovies(List<Movie> newMovies) {
         movies.clear();
         movies.addAll(newMovies);
         notifyDataSetChanged();
     }
+
 
 
     @NonNull
@@ -65,13 +58,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onImageClickListener != null) {
-                    onImageClickListener.onImageClick(position);
-                }
+                String movieJson = new Gson().toJson(movie);
+                Intent intent = new Intent(context, DescripcionActivity.class);
+                intent.putExtra("movie", movieJson);
+                context.startActivity(intent);
             }
         });
 
     }
+
+
 
     @Override
     public int getItemCount() {

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DescripcionActivity">
+
+    <WebView
+        android:id="@+id/vwvideoView"
+        android:layout_width="match_parent"
+        android:layout_height="238dp" />
+
+    <TextView
+        android:id="@+id/txtDescripcion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:padding="2dp"
+        android:paddingStart="15dp"
+        android:text="La descipcion de la pelicula se mostrara aqui asi que espere a cargar"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

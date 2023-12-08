@@ -1,8 +1,10 @@
 package com.example.proyectopeli.Conecction;
 import com.example.proyectopeli.Entidad.MovieReponse;
+import com.example.proyectopeli.Entidad.VideoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 public interface MovieAPI {
 
@@ -17,4 +19,9 @@ public interface MovieAPI {
 
     @GET("search/movie")
     Call<MovieReponse> getSearchMovies(@Query("api_key") String apiKey , @Query("language") String language,@Query("query") String query );
+
+    @GET("movie/{movieId}")
+    Call<MovieReponse> getMovieDetails(@Path("movieId") String movieId, @Query("api_key") String apiKe);
+    @GET("movie/{movieId}/videos")
+    Call<VideoResponse> getMovieVideos(@Path("movieId") String movieId, @Query("api_key") String apiKey);
 }

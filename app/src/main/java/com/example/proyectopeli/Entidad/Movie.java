@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class Movie {
-
+    @SerializedName("id")
+    private  String  id;
     private String title;
     private String overview;
     private Date releaseDate;
@@ -15,13 +16,21 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String title, String overview, Date releaseDate, String posterFullPath) {
+    public Movie(String id, String title, String overview, Date releaseDate, String posterFullPath) {
+        this.id = id;
         this.title = title;
         this.overview = overview;
         this.releaseDate = releaseDate;
         this.posterFullPath = posterFullPath;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

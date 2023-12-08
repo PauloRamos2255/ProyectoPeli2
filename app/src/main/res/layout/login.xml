@@ -56,7 +56,7 @@
                 android:background="@drawable/custon_edittext"
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
-                android:ems="18"
+                android:ems="20"
                 android:text="anuelitoramos@gmail.com"
                 android:hint="Usuario"
                 android:inputType="text"

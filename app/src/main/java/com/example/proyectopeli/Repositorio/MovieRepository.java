@@ -1,9 +1,17 @@
 package com.example.proyectopeli.Repositorio;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import com.example.proyectopeli.Conecction.APIConexion;
 import com.example.proyectopeli.Conecction.MovieAPI;
+import com.example.proyectopeli.DescripcionActivity;
 import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.Entidad.MovieReponse;
+import com.example.proyectopeli.Entidad.MovieVideoEntity;
+import com.example.proyectopeli.Entidad.Video;
+import com.example.proyectopeli.Entidad.VideoResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,4 +133,40 @@ public class MovieRepository {
 
         void onError(String errorMessage);
     }
+
+
+
+    public void fetchVideosForMovie(String movieId, String apiKey, final ObtenerVideo listener) {
+        Call<VideoResponse> call = movieApi.getMovieVideos(movieId, apiKey);
+
+        call.enqueue(new Callback<VideoResponse>() {
+            @Override
+            public void onResponse(Call<VideoResponse> call, Response<VideoResponse> response) {
+                if (response.isSuccessful()) {
+                    VideoResponse videoResponse = response.body();
+                    if (videoResponse != null) {
+                        List<Video> videos = videoResponse.getResults();
+                        listener.onSuccess(videos);
+                    } else {
+                        listener.onError("Error en la respuesta de la API al obtener la lista de videos para la película");
+                    }
+                } else {
+                    listener.onError("Error en la respuesta de la API al obtener la lista de videos para la película");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VideoResponse> call, Throwable t) {
+                listener.onError("Error de conexión al obtener la lista de videos para la película");
+            }
+        });
+    }
+
+
+    public interface ObtenerVideo {
+        void onSuccess(List<Video> videos);
+        void onError(String errorMessage);
+    }
+
+
 }
