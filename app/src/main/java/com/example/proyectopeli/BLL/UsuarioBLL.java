@@ -25,7 +25,7 @@ public class UsuarioBLL {
 
 
     Boolean exitoso;
-    public Boolean Registar(Usuario user  ) {
+    public Boolean Registar(Usuario user , String htmlCorreo ) {
         try {
             String htmlEnviado = null;
             Connection conexion = ConectionBD.conectar();
@@ -43,16 +43,14 @@ public class UsuarioBLL {
                     int filasAfectadas = pstmt.executeUpdate();
 
                     if(filasAfectadas != 0){
-                        Correo  correo = new Correo();
-                        correo.setCorreo(user.getCorreo());
-                        correo.setClave(user.getClave());
+                        if(htmlCorreo != null){
+                            try {
+                                    exitoso = Recurso.enviarCorreo(user.getCorreo() , "Creacion de Cuenta" , htmlCorreo);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
-                        try {
-                            exitoso = Recurso.enviarCorreo(correo);
-                        } catch (Exception ex) {
-                            exitoso = false;
                         }
-
                     }
 
                     return exitoso;
@@ -69,6 +67,7 @@ public class UsuarioBLL {
             return false;
         }
     }
+
 
     public  Boolean Login (String usuario , String contrasena){
         ResultSet resultado;

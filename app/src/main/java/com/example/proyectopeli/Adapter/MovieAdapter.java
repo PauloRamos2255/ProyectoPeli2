@@ -1,5 +1,7 @@
 package com.example.proyectopeli.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.proyectopeli.DescripcionActivity;
 import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.R;
+import com.google.gson.Gson;
 
 import java.util.List;
 
 
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-
     private List<Movie> movies;
+    private Context context;
 
-    public MovieAdapter(List<Movie> movies) {
+    public MovieAdapter(Context context, List<Movie> movies) {
+        this.context = context;
         this.movies = movies;
     }
 
@@ -30,6 +35,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         movies.addAll(newMovies);
         notifyDataSetChanged();
     }
+
 
 
     @NonNull
@@ -48,7 +54,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .placeholder(R.drawable.defaultplaceholder)
                 .error(R.drawable.image)
                 .into(holder.imageView);
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String movieJson = new Gson().toJson(movie);
+                Intent intent = new Intent(context, DescripcionActivity.class);
+                intent.putExtra("movie", movieJson);
+                context.startActivity(intent);
+            }
+        });
+
     }
+
+
 
     @Override
     public int getItemCount() {

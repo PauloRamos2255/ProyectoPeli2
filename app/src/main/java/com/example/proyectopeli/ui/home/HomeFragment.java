@@ -1,13 +1,15 @@
 package com.example.proyectopeli.ui.home;
 
-import android.content.DialogInterface;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.R;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,8 +42,8 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         recycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        movieAdapter = new MovieAdapter(new ArrayList<>());
-        popularAdapter = new MovieAdapter(new ArrayList<>());  // Nuevo adaptador para la lista popular
+        movieAdapter = new MovieAdapter(getActivity(),new ArrayList<>());
+        popularAdapter = new MovieAdapter(getActivity(),new ArrayList<>());
 
         recyclerView.setAdapter(movieAdapter);
         recycler.setAdapter(popularAdapter);  // Utiliza el adaptador correcto
@@ -52,16 +54,15 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+    Movie movie;
 
     private void observeViewModel() {
-        // Observa la lista de películas de la cartelera
         homeViewModel.getCarteleraMovies().observe(getViewLifecycleOwner(), carteleraMovies -> {
             if (carteleraMovies != null) {
                 movieAdapter.updateMovies(carteleraMovies);
             }
         });
 
-        // Observa la lista de películas populares
         homeViewModel.getPopularMovies().observe(getViewLifecycleOwner(), popularMovies -> {
             if (popularMovies != null) {
                 popularAdapter.updateMovies(popularMovies);

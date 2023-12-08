@@ -22,4 +22,14 @@
         android:name="com.example.proyectopeli.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_editar"
+        android:name="com.example.proyectopeli.EditarDatos"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_editar_datos" >
+        <action
+            android:id="@+id/action_notificationsFragment_to_editarDatosFragment"
+            app:destination="@id/navigation_editar" />
+    </fragment>
 </navigation>
