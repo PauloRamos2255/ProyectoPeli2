@@ -137,7 +137,7 @@ public class MovieRepository {
 
 
     public void fetchVideosForMovie(String movieId, String apiKey, final ObtenerVideo listener) {
-        Call<VideoResponse> call = movieApi.getMovieVideos(movieId, apiKey);
+        Call<VideoResponse> call = movieApi.getMovieVideos(movieId, apiKey, language);
 
         call.enqueue(new Callback<VideoResponse>() {
             @Override

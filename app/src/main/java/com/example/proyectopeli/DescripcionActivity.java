@@ -1,15 +1,17 @@
 package com.example.proyectopeli;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.widget.Toolbar;
 import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.Entidad.Video;
 import com.example.proyectopeli.Repositorio.MovieRepository;
@@ -33,9 +35,17 @@ public class DescripcionActivity extends AppCompatActivity implements MovieRepos
 
         movieRepository = new MovieRepository(); // Asegúrate de tener tu instancia de repositorio
 
+
+
+
         Intent intent = getIntent();
         String movieJson = intent.getStringExtra("movie");
         Movie movie = new Gson().fromJson(movieJson, Movie.class);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(movie.getTitle());
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         descripcion.setText(movie.getOverview());
         obtenerListaDeVideos(movie.getId(), "8300bb0075ff37f5c25ab05fdeb18503");
@@ -73,4 +83,14 @@ public class DescripcionActivity extends AppCompatActivity implements MovieRepos
         // Manejar errores si es necesario
         Toast.makeText(this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // o realiza la acción que desees al regresar
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

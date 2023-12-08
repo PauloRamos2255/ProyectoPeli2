@@ -20,8 +20,6 @@ public interface MovieAPI {
     @GET("search/movie")
     Call<MovieReponse> getSearchMovies(@Query("api_key") String apiKey , @Query("language") String language,@Query("query") String query );
 
-    @GET("movie/{movieId}")
-    Call<MovieReponse> getMovieDetails(@Path("movieId") String movieId, @Query("api_key") String apiKe);
     @GET("movie/{movieId}/videos")
-    Call<VideoResponse> getMovieVideos(@Path("movieId") String movieId, @Query("api_key") String apiKey);
+    Call<VideoResponse> getMovieVideos(@Path("movieId") String movieId, @Query("api_key") String apiKey , @Query("language") String language);
 }
