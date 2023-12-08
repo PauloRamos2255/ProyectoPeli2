@@ -1,9 +1,17 @@
 package com.example.proyectopeli.Repositorio;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import com.example.proyectopeli.Conecction.APIConexion;
 import com.example.proyectopeli.Conecction.MovieAPI;
+import com.example.proyectopeli.DescripcionActivity;
 import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.Entidad.MovieReponse;
+import com.example.proyectopeli.Entidad.MovieVideoEntity;
+import com.example.proyectopeli.Entidad.Video;
+import com.example.proyectopeli.Entidad.VideoResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +27,11 @@ public class MovieRepository {
     String language = "es-ES";
 
     public MovieRepository() {
-        // Utiliza tu método getClient() de ApiConexion para obtener el cliente Retrofit
         Retrofit retrofit = APIConexion.getClient();
-
-        // Crea una instancia de la interfaz de la API
         movieApi = retrofit.create(MovieAPI.class);
     }
 
     public void getPopularMovies(String apiKey, final OnMoviesCallback callback) {
-        // Realiza la solicitud a la API (asumiendo que apiKey es tu clave de API)
         Call<MovieReponse> call = movieApi.getPopularMovies(apiKey,language);
 
         call.enqueue(new Callback<MovieReponse>() {
@@ -130,17 +134,73 @@ public class MovieRepository {
         void onError(String errorMessage);
     }
 
+    public void getTendenciaMovies(String apiKey, final TendenciaCall callback){
 
-    public void getTendenciaMovies(String apiKey, final TendenciaCall callback) {
-        // Realiza la solicitud a la API (asumiendo que apiKey es tu clave de API)
-        Call<MovieReponse> call = movieApi.getTendenciaMovies(apiKey,language);
-
+        Call<MovieReponse> call = movieApi.getTendenciaMovies(apiKey ,language );
         call.enqueue(new Callback<MovieReponse>() {
             @Override
             public void onResponse(Call<MovieReponse> call, Response<MovieReponse> response) {
                 if (response.isSuccessful()) {
                     MovieReponse movieResponse = response.body();
+                    if (movieResponse != null) {
+                        List<Movie> movies = movieResponse.getResults();
+                        callback.onSuccess(movies);
+                    }
+                } else {
+                    callback.onError("Error al obtener la lista de películas");
+                }
+            }
+            @Override
+            public void onFailure(Call<MovieReponse> call, Throwable t) {
+                t.printStackTrace();
+                callback.onError("Error de red al obtener la lista de películas");
+            }
+        });
+    }
 
+    public interface TendenciaCall {
+        void onSuccess(List<Movie> moviess);
+
+        void onError(String errorMessage);
+    }
+
+    public void getEstrenosMovies(String apiKey, final EstrenosCall callback){
+
+        Call<MovieReponse> call = movieApi.getEstrenosMovies(apiKey ,language );
+        call.enqueue(new Callback<MovieReponse>() {
+            @Override
+            public void onResponse(Call<MovieReponse> call, Response<MovieReponse> response) {
+                if (response.isSuccessful()) {
+                    MovieReponse movieResponse = response.body();
+                    if (movieResponse != null) {
+                        List<Movie> movies = movieResponse.getResults();
+                        callback.onSuccess(movies);
+                    }
+                } else {
+                    callback.onError("Error al obtener la lista de películas");
+                }
+            }
+            @Override
+            public void onFailure(Call<MovieReponse> call, Throwable t) {
+                t.printStackTrace();
+                callback.onError("Error de red al obtener la lista de películas");
+            }
+        });
+    }
+
+    public interface EstrenosCall {
+        void onSuccess(List<Movie> moviess);
+
+        void onError(String errorMessage);
+    }
+
+    public void getRecienteMovies(String apiKey, final RecienteCall callback) {
+        Call<MovieReponse> call = movieApi.getRecienteMovies(apiKey, language);
+        call.enqueue(new Callback<MovieReponse>() {
+            @Override
+            public void onResponse(Call<MovieReponse> call, Response<MovieReponse> response) {
+                if (response.isSuccessful()) {
+                    MovieReponse movieResponse = response.body();
                     if (movieResponse != null) {
                         List<Movie> movies = movieResponse.getResults();
                         callback.onSuccess(movies);
@@ -158,9 +218,46 @@ public class MovieRepository {
         });
     }
 
-    public interface TendenciaCall {
-        void onSuccess(List<Movie> movies);
+    public interface RecienteCall {
+        void onSuccess(List<Movie> moviess);
 
         void onError(String errorMessage);
     }
+
+
+
+
+    public void fetchVideosForMovie(String movieId, String apiKey, final ObtenerVideo listener) {
+        Call<VideoResponse> call = movieApi.getMovieVideos(movieId, apiKey, language);
+
+        call.enqueue(new Callback<VideoResponse>() {
+            @Override
+            public void onResponse(Call<VideoResponse> call, Response<VideoResponse> response) {
+                if (response.isSuccessful()) {
+                    VideoResponse videoResponse = response.body();
+                    if (videoResponse != null) {
+                        List<Video> videos = videoResponse.getResults();
+                        listener.onSuccess(videos);
+                    } else {
+                        listener.onError("Error en la respuesta de la API al obtener la lista de videos para la película");
+                    }
+                } else {
+                    listener.onError("Error en la respuesta de la API al obtener la lista de videos para la película");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VideoResponse> call, Throwable t) {
+                listener.onError("Error de conexión al obtener la lista de videos para la película");
+            }
+        });
+    }
+
+
+    public interface ObtenerVideo {
+        void onSuccess(List<Video> videos);
+        void onError(String errorMessage);
+    }
+
+
 }
