@@ -1,11 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/morado1"
     android:id="@+id/EditarDatos"
     tools:context=".EditarDatos">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/white"
+        app:popupTheme="@style/Theme.AppCompat"/>
 
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/editarDatos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Editar Datos"
+        android:textAlignment="center"
+        android:textColor="@color/amarillo"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4" />
+
+
+
+    <EditText
+        android:id="@+id/txtEditarN"
+        android:layout_width="366dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borde"
+        android:layout_gravity="center"
+        android:drawablePadding="8dp"
+        android:hint="Nombres"
+        android:inputType="text"
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background" />
+    <EditText
+        android:id="@+id/txtEditarA"
+        android:layout_width="366dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borde"
+        android:layout_gravity="center"
+        android:drawablePadding="8dp"
+        android:hint="Apellidos"
+        android:inputType="text"
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background" />
+    <EditText
+        android:id="@+id/txtEditarC"
+        android:layout_width="366dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borde"
+        android:layout_gravity="center"
+        android:drawablePadding="8dp"
+        android:hint="Correo Electronico"
+        android:inputType="text"
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background" />
+    <EditText
+        android:id="@+id/txtEditarT"
+        android:layout_width="366dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borde"
+        android:layout_gravity="center"
+        android:drawablePadding="8dp"
+        android:hint="Teléfono"
+        android:inputType="text"
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background" />
+
+    <Button
+        android:id="@+id/btningresar"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/amarillo"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="Aceptar"
+        android:textSize="23sp"
+        app:cornerRadius="25dp" />
+
+</LinearLayout>
