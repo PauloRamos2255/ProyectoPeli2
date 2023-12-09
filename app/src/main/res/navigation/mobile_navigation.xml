@@ -28,8 +28,13 @@
         android:name="com.example.proyectopeli.EditarDatos"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_editar_datos" >
-        <action
-            android:id="@+id/action_notificationsFragment_to_editarDatosFragment"
-            app:destination="@id/navigation_editar" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_politica"
+        android:name="com.example.proyectopeli.Politica"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_politica" >
     </fragment>
 </navigation>
