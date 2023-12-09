@@ -8,13 +8,7 @@
     android:orientation="vertical"
     tools:context=".Politica">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:titleTextColor="@color/white"
-        app:popupTheme="@style/Theme.AppCompat"/>
+
 
 
     <ScrollView
