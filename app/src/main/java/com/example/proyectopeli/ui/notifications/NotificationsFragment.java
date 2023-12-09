@@ -1,33 +1,24 @@
 package com.example.proyectopeli.ui.notifications;
 
 import android.content.Intent;
+import android.media.RouteListingPreference;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.Navigation;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-
 import com.example.proyectopeli.BLL.UsuarioBLL;
-import com.example.proyectopeli.EditarDatos;
-import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.Entidad.Usuario;
+import com.example.proyectopeli.LoginActivity;
 import com.example.proyectopeli.R;
 import com.example.proyectopeli.databinding.FragmentNotificationsBinding;
-import com.google.gson.Gson;
+
 
 public class NotificationsFragment extends Fragment {
 
@@ -47,7 +38,15 @@ public class NotificationsFragment extends Fragment {
         cuenta = root.findViewById(R.id.txtCuenta);
         LinearLayout liner = root.findViewById(R.id.linertrans);
         LinearLayout poli = root.findViewById(R.id.linerpoli);
-        Toolbar toolbar = root.findViewById(R.id.toolbar);
+        LinearLayout cerrar = root.findViewById(R.id.cerrarS);
+
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Bundle bundle = getArguments();
         if (bundle != null) {
