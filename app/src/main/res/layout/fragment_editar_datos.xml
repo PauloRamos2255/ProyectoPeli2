@@ -98,5 +98,4 @@
         android:textSize="20sp"
         app:cornerRadius="20dp" />
 
-
 </LinearLayout>
