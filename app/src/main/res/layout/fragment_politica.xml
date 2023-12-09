@@ -1,10 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/morado1"
+    android:orientation="vertical"
     tools:context=".Politica">
 
 
 
-</FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/PoliticaTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Política de la Empresa"
+                android:textAlignment="center"
+                android:textColor="@color/amarillo"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:shadowColor="#000000"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="4" />
+
+            <TextView
+                android:id="@+id/txtPoliticaDescrip"
+                android:layout_width="374dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingStart="15dp"
+                android:text="Esta Política de Privacidad describe cómo MoviePLay recopila, utiliza y protege la información personal que pueda proporcionarnos a través de nuestra aplicación móvil."
+                android:textSize="20sp" />
+
+
+            <!-- uso de la info -->
+            <LinearLayout
+                android:layout_width="358dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="43dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/info" />
+
+
+                <TextView
+                    android:layout_width="303dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingStart="10dp"
+                    android:text="Uso de la Información"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="374dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingStart="15dp"
+                android:text="La información recopilada se utiliza para personalizar la experiencia en la aplicación, procesar transacciones, mejorar el servicio y enviar comunicaciones promocionales con su consentimiento. No compartimos información personal con terceros, a menos que sea necesario para cumplir con requisitos legales."
+                android:textSize="18sp"
+                />
+
+
+            <!-- medidad de seguridad -->
+            <LinearLayout
+                android:layout_width="358dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="43dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/seguridad" />
+
+
+                <TextView
+                    android:layout_width="303dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingStart="10dp"
+                    android:text="Medidad de Seguridad"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="374dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingStart="15dp"
+                android:text="Implementamos diversas medidas de seguridad para proteger los datos del usuario. Esto incluye el uso de encriptación de extremo a extremo para garantizar la confidencialidad de la información. Además, se han establecido firewalls y protocolos de acceso seguro para prevenir el acceso no autorizado."
+                android:textSize="18sp"
+                />
+
+
+            <!-- cambios de politica -->
+            <LinearLayout
+                android:layout_width="358dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="43dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/cambio" />
+
+
+                <TextView
+                    android:layout_width="303dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingStart="10dp"
+                    android:text="Cambios de Política de Privacidad "
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="374dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingStart="15dp"
+                android:text="Reconocemos la importancia de que los usuarios estén informados sobre cualquier cambio en la política de privacidad. Por lo tanto, proporcionaremos un período de 60 días para que los usuarios revisen y comprendan las actualizaciones antes de que entren en vigencia."
+                android:textSize="18sp"
+                />
+
+
+            <!-- consentimiento -->
+            <LinearLayout
+                android:layout_width="358dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="43dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/consentimiento" />
+
+
+                <TextView
+                    android:layout_width="303dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingStart="10dp"
+                    android:text="Consentimiento"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="374dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingStart="15dp"
+                android:text="Al utilizar nuestra aplicación, usted reconoce que su participación es voluntaria y que consiente el tratamiento de sus datos personales de acuerdo con los términos establecidos en esta Política de Privacidad."
+                android:textSize="18sp"
+                />
+
+
+            <!-- contacto-->
+            <LinearLayout
+                android:layout_width="358dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="43dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/contacto" />
+
+
+                <TextView
+                    android:layout_width="303dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingStart="10dp"
+                    android:text="Contactanos"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="374dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingStart="15dp"
+                android:text="Si tiene preguntas, inquietudes o comentarios sobre nuestra Política de Privacidad, le invitamos a ponerse en contacto con nuestro equipo de soporte a través del correo electrónico MoviePlay@gmail.com. Estamos disponibles durante 8:00 am hasta 17:00 pm y nos esforzamos por responder en un plazo de dos a tres días hábiles."
+                android:textSize="18sp"
+                />
+
+
+            <!-- finPolitica-->
+            <TextView
+                android:layout_width="374dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingStart="15dp"
+                android:text="Esta política refleja nuestro compromiso de proteger la privacidad del usuario y garantizar un uso adecuado de la información recopilada en la aplicación móvil."
+                android:textSize="18sp"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
