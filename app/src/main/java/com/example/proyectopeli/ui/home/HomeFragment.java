@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-    Movie movie;
+
 
     private void observeViewModel() {
         homeViewModel.getCarteleraMovies().observe(getViewLifecycleOwner(), carteleraMovies -> {

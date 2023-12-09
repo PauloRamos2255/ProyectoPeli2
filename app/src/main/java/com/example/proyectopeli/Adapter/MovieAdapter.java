@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.proyectopeli.DescripcionActivity;
 import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.R;
@@ -49,9 +51,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieAdapter.MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
         holder.titleTextView.setText(movie.getTitle());
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.defaultplaceholder)
+                .error(R.drawable.image);
         Glide.with(holder.itemView.getContext())
                 .load("https://image.tmdb.org/t/p/w200" + movie.getPosterFullPath())
                 .placeholder(R.drawable.defaultplaceholder)
+                .apply(requestOptions)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .error(R.drawable.image)
                 .into(holder.imageView);
 

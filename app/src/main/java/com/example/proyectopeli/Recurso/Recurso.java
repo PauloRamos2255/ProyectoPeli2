@@ -81,7 +81,7 @@ public class Recurso {
             message.setFrom(new InternetAddress(fromEmail, fromName));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoDestino));
             message.setSubject(asunto);
-            message.setContent("<p>Este es un párrafo de ejemplo. Puedes agregar tu propio texto aquí. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>", "text/html");
+            message.setContent(mensaje ,"text/html");
 
 
             Transport.send(message);

@@ -19,6 +19,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UsuarioBLL {
@@ -130,6 +132,43 @@ public class UsuarioBLL {
         }
 
         return mensaje;
+    }
+
+
+    public List<Usuario> buscarUsuariosPorCorreo(String correo) {
+        List<Usuario> listausaurios = new ArrayList<>();
+
+        try {
+            Connection conexion = ConectionBD.conectar();
+            if (conexion != null) {
+                String selectQuery = "SELECT * FROM Usuarios WHERE Correo = ?";
+
+                try (PreparedStatement selectStatement = conexion.prepareStatement(selectQuery)) {
+                    selectStatement.setString(1, correo);
+
+                    ResultSet resultSet = selectStatement.executeQuery();
+
+                    while (resultSet.next()) {
+                        Usuario usuarioEncontrado = new Usuario();
+                        usuarioEncontrado.setId(resultSet.getInt("id"));
+                        usuarioEncontrado.setNombre(resultSet.getString("Nombres"));
+                        usuarioEncontrado.setApellido(resultSet.getString("Apellidos"));
+                        usuarioEncontrado.setNumero(resultSet.getString("Numero"));
+                        usuarioEncontrado.setCorreo(resultSet.getString("Correo"));
+                        usuarioEncontrado.setClave(resultSet.getString("Contraseña"));
+
+                        listausaurios.add(usuarioEncontrado);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return listausaurios;
     }
 
 

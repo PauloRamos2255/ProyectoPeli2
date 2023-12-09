@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,8 +75,13 @@ public class DescripcionActivity extends AppCompatActivity implements MovieRepos
 
         // Cargar el video en el WebView
         webViewVideo.loadData(html, "text/html", "utf-8");
-        webViewVideo.getSettings().setJavaScriptEnabled(true);
         webViewVideo.setWebChromeClient(new WebChromeClient());
+        WebSettings videoOptions = webViewVideo.getSettings(); // <-- Cambié el nombre de la variable aquí
+        videoOptions.setJavaScriptEnabled(true);
+        videoOptions.setDatabaseEnabled(true);
+        videoOptions.setCacheMode(WebSettings.LOAD_DEFAULT);
+        videoOptions.setMediaPlaybackRequiresUserGesture(false);
+
     }
 
     @Override
