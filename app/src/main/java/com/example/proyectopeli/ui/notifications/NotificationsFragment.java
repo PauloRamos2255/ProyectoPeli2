@@ -46,6 +46,7 @@ public class NotificationsFragment extends Fragment {
         View root = binding.getRoot();
         cuenta = root.findViewById(R.id.txtCuenta);
         LinearLayout liner = root.findViewById(R.id.linertrans);
+        LinearLayout poli = root.findViewById(R.id.linerpoli);
         Toolbar toolbar = root.findViewById(R.id.toolbar);
 
         Bundle bundle = getArguments();
@@ -53,6 +54,13 @@ public class NotificationsFragment extends Fragment {
             Usuario usuario = (Usuario) bundle.getSerializable("usuario");
             cuenta.setText(usuario.getCorreo());
         }
+
+        poli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPolitica();
+            }
+        });
 
 
         liner.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +78,13 @@ public class NotificationsFragment extends Fragment {
 
         // Reemplaza R.id.action_notificationsFragment_to_editarDatosFragment con el ID correcto de la acción
         navController.navigate(R.id.navigation_editar);
+    }
+
+    void selectPolitica(){
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+
+        // Reemplaza R.id.action_notificationsFragment_to_editarDatosFragment con el ID correcto de la acción
+        navController.navigate(R.id.navigation_politica);
     }
 
 
