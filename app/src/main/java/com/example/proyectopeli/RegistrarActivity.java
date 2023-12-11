@@ -43,22 +43,32 @@ public class RegistrarActivity extends AppCompatActivity {
         txtregresar = (TextView) findViewById(R.id.txtRegresar);
         registrar = (Button) findViewById(R.id.btnRegistar);
         txtnombre = findViewById(R.id.txtNombre);;
-        nombre = txtnombre.getText().toString();
+
         txtapellido = findViewById(R.id.txtApellido);
-        apellido = txtapellido.getText().toString();
+
         txtnumero = findViewById(R.id.txtNumero);
-        numero = txtnumero.getText().toString();
+
         txtcorreo = findViewById(R.id.txtCorreo);
-        correo = txtcorreo.getText().toString();
+
 
 
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                new Registrar().execute();
-
+                if(txtnombre.getText().toString().equals("")  ){
+                    Valiciones("Complete sus datos");
+                }
+                else if( txtapellido.getText().toString().equals("") ){
+                    Valiciones("Complete sus datos");
+                } else if (txtnumero.getText().toString().equals("")) {
+                    Valiciones("Complete sus datos");
+                } else if ( txtcorreo.getText().toString().equals("")) {
+                    Valiciones("Complete sus datos");
+                }
+                else {
+                    new Registrar().execute();
+                }
             }
         });
 
@@ -79,6 +89,10 @@ public class RegistrarActivity extends AppCompatActivity {
 
 
         protected void onPreExecute() {
+            apellido = txtapellido.getText().toString();
+            numero = txtnumero.getText().toString();
+            correo = txtcorreo.getText().toString();
+            nombre = txtnombre.getText().toString();
             user.setNombre(nombre);
             user.setApellido(apellido);
             user.setNumero(numero);
@@ -92,18 +106,7 @@ public class RegistrarActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... voids) {
             try {
                 String HTML = "Bienvenido MOVIE PLAY \n"+ "Sus Credenciales son estas\n"+ "correo : "+ user.getCorreo() +"\n" + "Clave : " +user.getClave();
-                if(user.getNombre() == ""  ){
-                    Valiciones("Complete sus datos");
-                }
-                else if( user.getApellido() == "" ){
-                    Valiciones("Complete sus datos");
-                } else if (user.getNumero() == "" ) {
-                    Valiciones("Complete sus datos");
-                } else if ( user.getCorreo() == "") {
-                    Valiciones("Complete sus datos");
-                } else{
-                    exito = bll.Registar(user , HTML);
-                }
+                exito = bll.Registar(user , HTML);
                 return exito;
             } catch (Exception e) {
                 Log.e("AsyncTaskError", "Error en doInBackground()", e);

@@ -136,40 +136,45 @@ public class UsuarioBLL {
 
 
     public List<Usuario> buscarUsuariosPorCorreo(String correo) {
-        List<Usuario> listausaurios = new ArrayList<>();
+        List<Usuario> listaUsuarios = new ArrayList<>();
 
         try {
             Connection conexion = ConectionBD.conectar();
             if (conexion != null) {
-                String selectQuery = "SELECT * FROM Usuarios WHERE Correo = ?";
+                String selectQuery = "SELECT * FROM Usuarios WHERE Correo = '"+correo+"'";
 
                 try (PreparedStatement selectStatement = conexion.prepareStatement(selectQuery)) {
-                    selectStatement.setString(1, correo);
 
-                    ResultSet resultSet = selectStatement.executeQuery();
+                    try (ResultSet resultSet = selectStatement.executeQuery()) {
+                        while (resultSet.next()) {
+                            Usuario usuarioEncontrado = new Usuario();
+                            usuarioEncontrado.setId(resultSet.getInt("id"));
+                            usuarioEncontrado.setNombre(resultSet.getString("Nombres"));
+                            usuarioEncontrado.setApellido(resultSet.getString("Apellidos"));
+                            usuarioEncontrado.setNumero(resultSet.getString("Numero"));
+                            usuarioEncontrado.setCorreo(resultSet.getString("Correo"));
+                            usuarioEncontrado.setClave(resultSet.getString("Contraseña"));
 
-                    while (resultSet.next()) {
-                        Usuario usuarioEncontrado = new Usuario();
-                        usuarioEncontrado.setId(resultSet.getInt("id"));
-                        usuarioEncontrado.setNombre(resultSet.getString("Nombres"));
-                        usuarioEncontrado.setApellido(resultSet.getString("Apellidos"));
-                        usuarioEncontrado.setNumero(resultSet.getString("Numero"));
-                        usuarioEncontrado.setCorreo(resultSet.getString("Correo"));
-                        usuarioEncontrado.setClave(resultSet.getString("Contraseña"));
-
-                        listausaurios.add(usuarioEncontrado);
+                            listaUsuarios.add(usuarioEncontrado);
+                        }
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
             }
-
+        } catch (SQLException e) {
+            // Manejar la excepción de manera adecuada, por ejemplo, lanzando una excepción personalizada o utilizando un logger.
+            e.printStackTrace();
         } catch (Exception exception) {
+            // Manejar otras excepciones de manera adecuada.
             exception.printStackTrace();
         }
 
-        return listausaurios;
+        return listaUsuarios;
     }
+
+    public Usuario Usuarios(String correo) {
+        return buscarUsuariosPorCorreo(correo).get(0);
+    }
+
 
 
 }

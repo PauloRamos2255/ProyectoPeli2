@@ -1,6 +1,8 @@
 package com.example.proyectopeli.ui.notifications;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RouteListingPreference;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +21,9 @@ import com.example.proyectopeli.LoginActivity;
 import com.example.proyectopeli.R;
 import com.example.proyectopeli.databinding.FragmentNotificationsBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class NotificationsFragment extends Fragment {
 
@@ -26,6 +31,7 @@ public class NotificationsFragment extends Fragment {
     private NotificationsViewModel notificationsViewModel;
 
     UsuarioBLL bll = new UsuarioBLL();
+    Usuario usuario = new Usuario();
 
     TextView cuenta;
 
@@ -34,11 +40,17 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+
+        SharedPreferences preferences = getActivity().getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+        String correo= preferences.getString("USUARIO", "a@a.com");
         View root = binding.getRoot();
         cuenta = root.findViewById(R.id.txtCuenta);
         LinearLayout liner = root.findViewById(R.id.linertrans);
         LinearLayout poli = root.findViewById(R.id.linerpoli);
         LinearLayout cerrar = root.findViewById(R.id.cerrarS);
+        usuario = bll.Usuarios(correo);
+        cuenta.setText(usuario.getNombre() + usuario.getApellido());
+
 
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,11 +60,6 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            Usuario usuario = (Usuario) bundle.getSerializable("usuario");
-            cuenta.setText(usuario.getCorreo());
-        }
 
         poli.setOnClickListener(new View.OnClickListener() {
             @Override

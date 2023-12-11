@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -128,16 +129,23 @@ public class LoginActivity extends AppCompatActivity {
                  SinConexxion();
             }
             else if (exitoso) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("usuario", usuario);
+                //Bundle bundle = new Bundle();
+                //bundle.putSerializable("usuario", usuario);
 
-                NotificationsFragment tuFragment = new NotificationsFragment();
+                /*NotificationsFragment tuFragment = new NotificationsFragment();
                 tuFragment.setArguments(bundle);
 
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.nav_host_fragment_activity_main, tuFragment)
-                        .commit();
+                        .commit();*/
                 Intent intent = new Intent(LoginActivity.this , MenuPeli.class);
+                //intent.putExtra("USUARIO",bundle);
+
+                SharedPreferences preferences = LoginActivity.this.getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("USUARIO", usuario.getCorreo());
+                editor.apply();
+
                 startActivity(intent);
             } else  {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
