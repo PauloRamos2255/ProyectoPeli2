@@ -17,23 +17,103 @@
         app:popupTheme="@style/Theme.AppCompat"/>
 
 
+
     <WebView
         android:id="@+id/vwvideoView"
         android:layout_width="match_parent"
         android:layout_height="238dp"
         android:layout_marginTop="62dp"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vwvideoView"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/hd" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/calificar" />
+</LinearLayout>
 
     <TextView
         android:id="@+id/txtDescripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="315dp"
+        android:layout_marginTop="365dp"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:text="La descripción de la película se mostrará aquí, así que espere a que cargue"
         android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vwvideoView"
+        android:layout_marginTop="340dp"
+        android:layout_marginStart="15dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/agregar" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/like" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/compartir" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vwvideoView"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="381dp"
+        android:textStyle="bold"
+        android:text="Agregar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vwvideoView"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="381dp"
+        android:textStyle="bold"
+        android:text="Me gusta" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vwvideoView"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="381dp"
+        android:textStyle="bold"
+        android:text="Compartir" />
 
 
 
