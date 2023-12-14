@@ -146,4 +146,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onDestroy();
         executorService.shutdownNow(); // Detener la ejecución de tareas en segundo plano al destruir la actividad
     }
+
+
+
+
+
 }

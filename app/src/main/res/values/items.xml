@@ -9,4 +9,9 @@
 
         <!-- Otros atributos de estilo -->
     </style>
+
+    <style name="carga">
+        <item name="android:indeterminateDrawable">@drawable/custom_carga</item>
+    </style>
+
 </resources>
