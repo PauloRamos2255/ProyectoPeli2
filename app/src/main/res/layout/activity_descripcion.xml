@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vwvideoView"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="43dp"
         android:layout_marginTop="385dp"
         android:textStyle="bold"
         android:text="Mi lista" />
@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vwvideoView"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="135dp"
         android:layout_marginTop="385dp"
         android:textStyle="bold"
         android:text="Me gusta" />
@@ -116,7 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vwvideoView"
-        android:layout_marginStart="220dp"
+        android:layout_marginStart="225dp"
         android:layout_marginTop="385dp"
         android:textStyle="bold"
         android:text="Compartir" />
@@ -125,7 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vwvideoView"
-        android:layout_marginStart="320dp"
+        android:layout_marginStart="323dp"
         android:layout_marginTop="385dp"
         android:textStyle="bold"
         android:text="Descargar" />
