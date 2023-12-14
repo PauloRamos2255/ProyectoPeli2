@@ -99,6 +99,37 @@ public class UsuarioBLL {
     }
 
 
+    public Boolean editarUsuario(Usuario user) {
+        try {
+            Connection conexion = ConectionBD.conectar();
+            if (conexion != null) {
+                String consulta = "UPDATE Usuarios SET Nombres=?, Apellidos=?, Numero=?, Correo=? WHERE id=?";
+
+                try (PreparedStatement pstmt = conexion.prepareStatement(consulta)) {
+                    pstmt.setString(1, user.getNombre());
+                    pstmt.setString(2, user.getApellido());
+                    pstmt.setString(3, user.getNumero());
+                    pstmt.setString(4, user.getCorreo());
+                    pstmt.setInt(5, user.getId());
+
+                    int filasAfectadas = pstmt.executeUpdate();
+
+                    return filasAfectadas != 0;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return false;
+        }
+    }
+
+
+
 
 
 

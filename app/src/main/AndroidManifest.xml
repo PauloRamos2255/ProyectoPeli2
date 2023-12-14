@@ -23,7 +23,7 @@
         <activity
             android:name=".MenuPeli"
             android:exported="false"
-            android:label="@string/title_activity_menu_peli"></activity>
+            android:label="@string/title_activity_menu_peli"/>
         <activity
             android:name=".RegistrarActivity"
             android:exported="false" />
