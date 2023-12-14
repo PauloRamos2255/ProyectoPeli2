@@ -16,8 +16,6 @@
         app:titleTextColor="@color/white"
         app:popupTheme="@style/Theme.AppCompat"/>
 
-
-
     <WebView
         android:id="@+id/vwvideoView"
         android:layout_width="match_parent"
