@@ -17,6 +17,9 @@
         android:theme="@style/Theme.ProyectoPeli"
         tools:targetApi="31">
         <activity
+            android:name=".Carga"
+            android:exported="false" />
+        <activity
             android:name=".DescripcionActivity"
             android:exported="false" />
         <activity

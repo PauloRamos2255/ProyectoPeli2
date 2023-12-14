@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (!Recurso.Conexion(getApplicationContext())) {
                         SinConexion();
                     } else if (exitoso) {
-                        Intent intent = new Intent(LoginActivity.this, MenuPeli.class);
+                        Intent intent = new Intent(LoginActivity.this, Carga.class);
                         SharedPreferences preferences = LoginActivity.this.getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("USUARIO", usuario.getCorreo());
