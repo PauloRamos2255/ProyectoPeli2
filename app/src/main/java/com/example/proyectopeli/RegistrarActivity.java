@@ -20,12 +20,12 @@ import com.example.proyectopeli.Recurso.Recurso;
 public class RegistrarActivity extends AppCompatActivity {
 
 
-   public  UsuarioBLL bll = new UsuarioBLL();
-   Button registrar;
-   TextView txtregresar;
-   String  nombre ,apellido,numero, correo;
-   TextView  txtnombre , txtapellido, txtnumero, txtcorreo;
-   Boolean exito = false;
+    public  UsuarioBLL bll = new UsuarioBLL();
+    Button registrar;
+    TextView txtregresar;
+    String  nombre ,apellido,numero, correo;
+    TextView  txtnombre , txtapellido, txtnumero, txtcorreo;
+    Boolean exito = false;
 
 
 

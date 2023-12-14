@@ -118,10 +118,10 @@ public class NotificationsFragment extends Fragment {
             Statement stm= conexionBD().createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Usuarios WHERE correo = '" + correo + "'");
             if(rs.next()){
-                 nombre = rs.getString(2);
-                 apellido = rs.getString(3);
-                 numero = rs.getString(10);
-                 cuenta.setText( nombre + " " + apellido);
+                nombre = rs.getString(2);
+                apellido = rs.getString(3);
+                numero = rs.getString(10);
+                cuenta.setText( nombre + " " + apellido);
             }
         }catch (Exception e){
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
