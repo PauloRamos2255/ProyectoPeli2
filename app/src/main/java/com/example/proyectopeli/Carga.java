@@ -17,7 +17,6 @@ public class Carga extends AppCompatActivity {
         setContentView(R.layout.activity_carga);
 
         ProgressBar progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
