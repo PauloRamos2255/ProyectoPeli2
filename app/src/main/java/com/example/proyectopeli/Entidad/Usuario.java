@@ -1,14 +1,18 @@
 package com.example.proyectopeli.Entidad;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
-public class Usuario implements Serializable {
+
+public class Usuario  {
 
     private int id;
     private String nombre;
     private String apellido;
     private String correo;
     private String clave;
+
     private String numero;
     private boolean restablecer;
 

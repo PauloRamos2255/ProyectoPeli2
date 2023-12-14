@@ -6,10 +6,8 @@ import android.util.Log;
 
 import com.example.proyectopeli.Conecction.APIConexion;
 import com.example.proyectopeli.Conecction.MovieAPI;
-import com.example.proyectopeli.DescripcionActivity;
 import com.example.proyectopeli.Entidad.Movie;
 import com.example.proyectopeli.Entidad.MovieReponse;
-import com.example.proyectopeli.Entidad.MovieVideoEntity;
 import com.example.proyectopeli.Entidad.Video;
 import com.example.proyectopeli.Entidad.VideoResponse;
 

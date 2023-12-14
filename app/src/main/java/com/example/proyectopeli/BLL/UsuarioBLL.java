@@ -1,30 +1,21 @@
 package com.example.proyectopeli.BLL;
 
-import android.net.Uri;
+import android.security.keystore.UserPresenceUnavailableException;
 
 import com.example.proyectopeli.Conecction.ConectionBD;
-import com.example.proyectopeli.Entidad.Correo;
 import com.example.proyectopeli.Recurso.Recurso;
 import com.example.proyectopeli.Entidad.Usuario;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.sql.CallableStatement;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Collection;
 
 
 public class UsuarioBLL {
-
 
     Boolean exitoso;
     public Boolean Registar(Usuario user , String htmlCorreo ) {
@@ -71,10 +62,12 @@ public class UsuarioBLL {
     }
 
 
-    public  Boolean Login (String usuario , String contrasena){
+    public  Boolean Login (String usuario , String contrasena) {
         ResultSet resultado;
+        Connection conexion = null;
         try {
-            Connection conexion = ConectionBD.conectar();
+            ConectionBD conectionBD = new ConectionBD();
+            conexion = conectionBD.conectar();
             if (conexion != null) {
                 String consulta = "SELECT * FROM Usuarios  WHERE Correo = ? AND Contraseña = ?";
 
@@ -82,14 +75,17 @@ public class UsuarioBLL {
                     pstmt.setString(1, usuario);
                     pstmt.setString(2, contrasena);
 
-                      resultado = pstmt.executeQuery();
+                    resultado = pstmt.executeQuery();
+
 
                     return resultado.next();
                 }
 
+
             } else {
                 return false;
             }
+
 
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -97,83 +93,29 @@ public class UsuarioBLL {
         } catch (Exception exception) {
             exception.printStackTrace();
             return false;
+        } finally {
+            cerrarConexion(conexion);
         }
     }
 
 
-    public String Recuperar(String correo, String mensaje) {
-        ResultSet resultado;
 
+
+
+
+
+
+
+    private void cerrarConexion(Connection conexion) {
         try {
-            Connection conexion = ConectionBD.conectar();
-
-            if (conexion != null) {
-                String consulta = "exec sp_Recuperar ?, ?, ?";
-                String clave = Recurso.generarClave();
-
-                try (CallableStatement cstmt = conexion.prepareCall(consulta)) {
-                    // Configurar parámetros de entrada
-                    cstmt.setString(1, mensaje);
-                    cstmt.setString(2, correo);
-                    cstmt.setString(3, clave);
-
-                    // Configurar parámetro de salida para el mensaje
-                    cstmt.registerOutParameter(1, Types.VARCHAR);
-
-                    // Ejecutar la consulta
-                    cstmt.execute();
-
-                    // Obtener el mensaje de salida
-                    mensaje = cstmt.getString(1);
-                }
-            }
-        } catch (Exception ex) {
-            mensaje = ex.getMessage();
-        }
-
-        return mensaje;
-    }
-
-
-    public List<Usuario> buscarUsuariosPorCorreo(String correo) {
-        List<Usuario> listaUsuarios = new ArrayList<>();
-
-        try {
-            Connection conexion = ConectionBD.conectar();
-            if (conexion != null) {
-                String selectQuery = "SELECT * FROM Usuarios WHERE Correo = '"+correo+"'";
-
-                try (PreparedStatement selectStatement = conexion.prepareStatement(selectQuery)) {
-
-                    try (ResultSet resultSet = selectStatement.executeQuery()) {
-                        while (resultSet.next()) {
-                            Usuario usuarioEncontrado = new Usuario();
-                            usuarioEncontrado.setId(resultSet.getInt("id"));
-                            usuarioEncontrado.setNombre(resultSet.getString("Nombres"));
-                            usuarioEncontrado.setApellido(resultSet.getString("Apellidos"));
-                            usuarioEncontrado.setNumero(resultSet.getString("Numero"));
-                            usuarioEncontrado.setCorreo(resultSet.getString("Correo"));
-                            usuarioEncontrado.setClave(resultSet.getString("Contraseña"));
-
-                            listaUsuarios.add(usuarioEncontrado);
-                        }
-                    }
-                }
+            if (conexion != null && !conexion.isClosed()) {
+                conexion.close();
             }
         } catch (SQLException e) {
-            // Manejar la excepción de manera adecuada, por ejemplo, lanzando una excepción personalizada o utilizando un logger.
             e.printStackTrace();
-        } catch (Exception exception) {
-            // Manejar otras excepciones de manera adecuada.
-            exception.printStackTrace();
         }
-
-        return listaUsuarios;
     }
 
-    public Usuario Usuarios(String correo) {
-        return buscarUsuariosPorCorreo(correo).get(0);
-    }
 
 
 

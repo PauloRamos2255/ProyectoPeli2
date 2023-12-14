@@ -31,141 +31,119 @@ import com.google.gson.Gson;
 
 
 import java.sql.Connection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText txtusurio , txtclave;
-    TextView lblregistrar;
-    Button btnIngresar;
-    Connection db;
-    private Context context;
+    private EditText txtusurio, txtclave;
+    private TextView lblregistrar;
+    private Button btnIngresar;
 
+    private UsuarioBLL bll = new UsuarioBLL();
+    private Usuario usuario = new Usuario();
 
-    private ProgressDialog progressDialog;
-
-    UsuarioBLL bll = new UsuarioBLL();
-    Usuario usuario = new Usuario();
-
-
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private Future<Boolean> loginFuture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        txtusurio =  findViewById(R.id.txtusuario);
-        txtclave =  findViewById(R.id.txtclave);
-        lblregistrar =  findViewById(R.id.lblregistrar);
-        btnIngresar =  findViewById(R.id.btningresar);
-
-
+        txtusurio = findViewById(R.id.txtusuario);
+        txtclave = findViewById(R.id.txtclave);
+        lblregistrar = findViewById(R.id.lblregistrar);
+        btnIngresar = findViewById(R.id.btningresar);
 
         LayoutInflater inflater = this.getLayoutInflater();
-
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                new ConnectToDatabaseTask().execute();
+                onIngresarClick();
             }
         });
 
         lblregistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(LoginActivity.this, RegistrarActivity.class);
-                startActivity(intent);
+                onRegistrarClick();
             }
         });
 
-
-
         if (!Recurso.Conexion(getApplicationContext())) {
-             SinConexxion();
+            SinConexion();
         }
-
     }
 
-    private void SinConexxion() {
+    private void onIngresarClick() {
+        usuario.setCorreo(txtusurio.getText().toString());
+        usuario.setClave(Recurso.sha256(txtclave.getText().toString()));
+
+        loginFuture = executorService.submit(() -> bll.Login(usuario.getCorreo(), usuario.getClave()));
+
+        // Puedes mostrar un indicador de carga aquí si es necesario
+
+        // Espera el resultado en segundo plano
+        executorService.execute(() -> {
+            try {
+                boolean exitoso = loginFuture.get();
+
+                runOnUiThread(() -> {
+                    // Puedes ocultar el indicador de carga aquí si es necesario
+
+                    if (!Recurso.Conexion(getApplicationContext())) {
+                        SinConexion();
+                    } else if (exitoso) {
+                        Intent intent = new Intent(LoginActivity.this, MenuPeli.class);
+                        SharedPreferences preferences = LoginActivity.this.getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("USUARIO", usuario.getCorreo());
+                        editor.apply();
+                        startActivity(intent);
+                    } else {
+                        mostrarCredencialesIncorrectas();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void onRegistrarClick() {
+        Intent intent = new Intent(LoginActivity.this, RegistrarActivity.class);
+        startActivity(intent);
+    }
+
+    private void SinConexion() {
         LayoutInflater inflater = getLayoutInflater();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setTitle("Alerta de Conexión")
-                .setView(inflater.inflate(R.layout.fragment_vali, null))  // Configura la vista del Fragment en el AlertDialog
-                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
+                .setView(inflater.inflate(R.layout.fragment_vali, null))
+                .setPositiveButton("Aceptar", (dialogInterface, i) -> dialogInterface.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
+    private void mostrarCredencialesIncorrectas() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setTitle("Credenciales Incorrecta")
+                .setMessage("Las credenciales proporcionadas son incorrectas. Por favor, inténtalo de nuevo.")
+                .setNegativeButton("Aceptar", (dialog, id) -> dialog.dismiss());
 
-
-
-    private class ConnectToDatabaseTask extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            usuario.setCorreo( txtusurio.getText().toString());
-            usuario.setClave(Recurso.sha256(txtclave.getText().toString()));
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            Boolean login = bll.Login(usuario.getCorreo() , usuario.getClave());
-            return  login;
-        }
-
-
-        protected void onPostExecute(Boolean exitoso) {
-            if(!Recurso.Conexion(getApplicationContext())){
-                 SinConexxion();
-            }
-            else if (exitoso) {
-                //Bundle bundle = new Bundle();
-                //bundle.putSerializable("usuario", usuario);
-
-                /*NotificationsFragment tuFragment = new NotificationsFragment();
-                tuFragment.setArguments(bundle);
-
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment_activity_main, tuFragment)
-                        .commit();*/
-                Intent intent = new Intent(LoginActivity.this , MenuPeli.class);
-                //intent.putExtra("USUARIO",bundle);
-
-                SharedPreferences preferences = LoginActivity.this.getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("USUARIO", usuario.getCorreo());
-                editor.apply();
-
-                startActivity(intent);
-            } else  {
-                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setTitle("Credenciales Incorrecta")
-                        .setMessage("Las credenciales proporcionadas son incorrectas. Por favor, inténtalo de nuevo.")
-                        .setNegativeButton("Aceptar" ,new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.dismiss();
-                            }
-                        });
-
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        }
-
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        executorService.shutdownNow(); // Detener la ejecución de tareas en segundo plano al destruir la actividad
+    }
 }
