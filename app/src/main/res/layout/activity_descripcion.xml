@@ -76,33 +76,39 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="45dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/like" />
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="45dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/compartir" />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/descargar" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vwvideoView"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="381dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="385dp"
         android:textStyle="bold"
-        android:text="Agregar" />
+        android:text="Mi lista" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vwvideoView"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="381dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="385dp"
         android:textStyle="bold"
         android:text="Me gusta" />
 
@@ -110,10 +116,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vwvideoView"
-        android:layout_marginStart="270dp"
-        android:layout_marginTop="381dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="385dp"
         android:textStyle="bold"
         android:text="Compartir" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vwvideoView"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="385dp"
+        android:textStyle="bold"
+        android:text="Descargar" />
 
 
 
