@@ -7,21 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.proyectopeli.BLL.UsuarioBLL;
-import com.example.proyectopeli.Entidad.Correo;
 import com.example.proyectopeli.Entidad.Usuario;
 import com.example.proyectopeli.Recurso.Recurso;
-
-import java.net.URLEncoder;
 
 public class RegistrarActivity extends AppCompatActivity {
 
@@ -117,12 +111,12 @@ public class RegistrarActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean exitoso) {
-            Correo correo1 = new Correo();
+
             if (exitoso) {
                 Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
                 startActivity(intent);
             } else {
-                Valiciones("Error al registrar sus datos " + correo1.toJson() );
+                Valiciones("Error al registrar sus datos " );
             }
         }
     }
