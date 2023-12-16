@@ -27,7 +27,6 @@ import javax.mail.internet.MimeMessage;
 public class Recurso {
 
 
-
     public static String sha256(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
