@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        verificarSesion();
         txtusurio = findViewById(R.id.txtusuario);
         txtclave = findViewById(R.id.txtclave);
         lblregistrar = findViewById(R.id.lblregistrar);
@@ -77,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
         if (!Recurso.Conexion(getApplicationContext())) {
             SinConexion();
         }
+
+
     }
 
     private void onIngresarClick() {
@@ -99,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                         SinConexion();
                     } else if (exitoso) {
                         Intent intent = new Intent(LoginActivity.this, Carga.class);
+                        guardarSesionActiva();
                         SharedPreferences preferences = LoginActivity.this.getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("USUARIO", usuario.getCorreo());
@@ -145,6 +149,23 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         executorService.shutdownNow(); // Detener la ejecución de tareas en segundo plano al destruir la actividad
+    }
+
+    private void guardarSesionActiva() {
+        SharedPreferences preferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("sesionActiva", true);
+        editor.apply();
+    }
+
+    private void verificarSesion() {
+        SharedPreferences preferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        boolean sesionActiva = preferences.getBoolean("sesionActiva", false);
+
+        if (sesionActiva) {
+            startActivity(new Intent(LoginActivity.this, Carga.class));
+            finish(); // Opcional: cierra la actividad actual para evitar que el usuario vuelva atrás
+        }
     }
 
 

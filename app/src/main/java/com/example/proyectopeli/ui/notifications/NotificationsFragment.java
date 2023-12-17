@@ -60,6 +60,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent =  new Intent(getActivity(), LoginActivity.class);
+                guardarSesionInactiva();
                 startActivity(intent);
             }
         });
@@ -126,6 +127,13 @@ public class NotificationsFragment extends Fragment {
         }catch (Exception e){
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void guardarSesionInactiva() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("sesionActiva", false);
+        editor.apply();
     }
 
 }
