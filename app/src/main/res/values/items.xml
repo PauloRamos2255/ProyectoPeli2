@@ -13,5 +13,12 @@
     <style name="carga">
         <item name="android:indeterminateDrawable">@drawable/custom_carga</item>
     </style>
+    
+    
+    <style name="DialoAnimatios">
+        <item name="android:windowEnterAnimation">@anim/animacion_1</item>
+        <item name="android:windowExitAnimation">@anim/animacion_2</item>
+    </style>
+    
 
 </resources>

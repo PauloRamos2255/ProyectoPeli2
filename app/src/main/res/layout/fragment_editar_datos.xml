@@ -9,29 +9,37 @@
     android:id="@+id/EditarDatos"
     tools:context=".EditarDatos">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        app:cardCornerRadius="100dp" >
+        <ImageView
+            android:id="@+id/foto"
+            android:layout_width="150dp"
+            android:layout_height="163dp"
+            android:background="@color/white"
+            android:src="@drawable/img">
+        </ImageView>
+    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/editarDatos"
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/btnPerfil"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Editar Datos"
-        android:textAlignment="center"
-        android:textColor="@color/amarillo"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:shadowColor="#000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="4" />
-
+        android:text="Cmabiar foto de Perfil"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="15dp"
+        />
 
     <EditText
         android:id="@+id/txtNombre"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:drawablePadding="8dp"
         android:layout_gravity="center"
         android:hint="Nombres"
@@ -45,13 +53,13 @@
         android:id="@+id/txtApellido"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:drawablePadding="8dp"
         android:layout_gravity="center"
         android:hint="Apellidos"
         android:drawableLeft="@drawable/baseline_person_24"
         android:inputType="text"
-        android:paddingLeft="15dp"
+        android:paddingLeft="1dp"
         android:textColor="@color/black"
         android:textColorHint="@color/cardview_dark_background" />
 
@@ -59,7 +67,7 @@
         android:id="@+id/txtCorreo"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:drawablePadding="8dp"
         android:layout_gravity="center"
         android:hint="Correo Electronico"
@@ -73,7 +81,7 @@
         android:id="@+id/txtTelefono"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:drawablePadding="8dp"
         android:layout_gravity="center"
         android:hint="Teléfono"
@@ -86,9 +94,9 @@
 
     <Button
         android:id="@+id/btneditar"
-        android:layout_width="200dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/morado"
         android:fontFamily="sans-serif-condensed-medium"
         android:paddingTop="10dp"

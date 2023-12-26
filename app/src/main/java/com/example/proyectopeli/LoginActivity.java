@@ -21,9 +21,11 @@ import android.widget.TextView;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.example.proyectopeli.BLL.UsuarioBLL;
 
+import com.example.proyectopeli.Conecction.ConectionBD;
 import com.example.proyectopeli.Entidad.Usuario;
 import com.example.proyectopeli.Recurso.Recurso;
 import com.example.proyectopeli.ui.notifications.NotificationsFragment;
@@ -31,6 +33,8 @@ import com.google.gson.Gson;
 
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -103,9 +107,10 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (exitoso) {
                         Intent intent = new Intent(LoginActivity.this, Carga.class);
                         guardarSesionActiva();
+                        consultarpersonal(usuario.getCorreo());
                         SharedPreferences preferences = LoginActivity.this.getSharedPreferences("datos_usuario", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("USUARIO", usuario.getCorreo());
+                        editor.putInt("USUARIO", usuario.getId());
                         editor.apply();
                         startActivity(intent);
                     } else {
@@ -165,6 +170,19 @@ public class LoginActivity extends AppCompatActivity {
         if (sesionActiva) {
             startActivity(new Intent(LoginActivity.this, Carga.class));
             finish(); // Opcional: cierra la actividad actual para evitar que el usuario vuelva atrás
+        }
+    }
+
+    public void consultarpersonal( String correo){
+
+        try {
+            Statement stm= ConectionBD.conectar().createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM Usuarios WHERE correo = '" + correo + "'");
+            if(rs.next()){
+                usuario.setId(rs.getInt(1));
+            }
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -34,13 +34,24 @@
             android:textStyle="bold"
             android:textSize="34sp" />
 
-        <ImageView
-            android:id="@+id/imageView"
+
+        <androidx.cardview.widget.CardView
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="6dp"
-            android:src="@drawable/usuario" />
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="100dp" >
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:background="@color/white"
+                app:cornerRadius="75dp"
+                android:src="@drawable/img">
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+
+
 
         <TextView
             android:id="@+id/txtCuenta"
