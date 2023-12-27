@@ -2,6 +2,8 @@ package com.example.proyectopeli.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextPaint;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +52,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
-        holder.titleTextView.setText(movie.getTitle());
+
+        String texto = movie.getTitle();
+
+
+        int maxLength = 20;
+
+        if (texto.length() > maxLength) {
+            String textoCorto = texto.substring(0, maxLength);
+
+            // Agrega puntos suspensivos
+            textoCorto += "...";
+
+            // Establece el texto corto en el TextView
+            holder.titleTextView.setText(textoCorto);
+        } else {
+            holder.titleTextView.setText(texto);
+        }
+
+
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(R.drawable.defaultplaceholder)
                 .error(R.drawable.image);
