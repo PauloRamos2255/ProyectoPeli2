@@ -52,6 +52,11 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.7.5")
     implementation("androidx.mediarouter:mediarouter:1.6.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    //Camara
+    implementation("androidx.camera:camera-core:1.2.2")
+    implementation("androidx.camera:camera-camera2:1.2.2")
+    implementation("androidx.camera:camera-lifecycle:1.2.2")
+    implementation("androidx.camera:camera-view:1.2.2")
     implementation ("com.google.code.gson:gson:2.8.9")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation ("com.facebook.shimmer:shimmer:0.1.0@aar")

@@ -34,6 +34,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.proyectopeli.BLL.UsuarioBLL;
+import com.example.proyectopeli.CamaraActivity;
 import com.example.proyectopeli.Conecction.ConectionBD;
 import com.example.proyectopeli.Entidad.Usuario;
 import com.example.proyectopeli.LoginActivity;
@@ -199,7 +200,8 @@ public class NotificationsFragment extends Fragment {
         camaralayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText( getContext(), "Abristes tu camara", Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(getActivity() , CamaraActivity.class);
+               startActivity(intent);
             }
         });
 
